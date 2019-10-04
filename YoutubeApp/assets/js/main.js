@@ -5,7 +5,7 @@ let playlistIdArr = ['PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA', 'PLWWwA08a1OR-Sruf_9U
 const key = 'AIzaSyCK0Go8xquMoUGq1szMVeaHU5NcepoHwi4';
 const baseUrl = 'https://www.googleapis.com/youtube/v3';
 const playlistItemEndpoint = '/playlistItems';
-//  let playlistId = 'PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA';
+
 
 function watchPlaylistForm(){
     $('#playlistForm').on('submit', function(event){
