@@ -10,22 +10,23 @@
     </head>
    
     <body>
+
         <h1>YouTube App</h1>
-        <form id="playlistForm">
-<legend>Add a new playlist</legend>
-<label for="playlistIdInput">Playlist Id</label>
-<input id="playlistIdInput" placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc" value="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
-<button type="submit">Submit</button>
-        </form>
-
         <h2>Playlists:</h2>
-       <ul class="playlistsContainer">
+        <p>Choose a playlist</p>
+        <ul class="playlistsContainer"></ul>
 
-       </ul>
-
-<h2>Results</h2>
-<div id="video" ></div>
-<ul class="playlistItemsContainer"></ul>
+        <form id="playlistForm">
+            <legend>Add a new playlist</legend>
+            <label for="playlistIdInput">Playlist Id</label>
+            <input id="playlistIdInput" placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc" value="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
+            <button type="submit">Submit</button>
+        </form>
+        
+        <h2>Results</h2>
+        <p>Choose a video</p>
+        <div id="video" ></div>
+        <ul class="playlistItemsContainer"></ul>
 
 
         <script src="assets/js/jquery-3.4.1.min.js"></script>

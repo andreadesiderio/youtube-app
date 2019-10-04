@@ -14,7 +14,6 @@ function watchPlaylistForm(){
         $('.playlistsContainer').empty();
         $('.playlistItemsContainer').empty();
         playlistIdArr.push(playlistIdInput);
-        alert('arr' + playlistIdArr.length);
         fetchUrl(playlistIdArr, playlistEndpoint);
     })
 }
@@ -38,7 +37,6 @@ function queryString(playlistId, endpoint){
 
 
 function fetchUrl(id, endpoint){
-    alert('fetched');
     console.log("id: " + id);
     const url = baseUrl + endpoint + '?' + queryString(id, endpoint);
     console.log("url:" + url);
@@ -56,7 +54,6 @@ function fetchUrl(id, endpoint){
 
 
 function displayResults(responseJson){
-    console.log(responseJson.kind);
     if (responseJson.kind == 'youtube#playlistListResponse'){
         for (let i = 0; i < responseJson.items.length; i++){
             let item = responseJson.items[i];
@@ -71,7 +68,6 @@ function displayResults(responseJson){
         $('.playlistsContainer').on('click', '.playlist', function(){
             event.stopPropagation();
             let playlistId = $(this).attr('id');
-            alert('playlist id ' + playlistId);
             fetchUrl(playlistId, playlistItemEndpoint);
         });
     }
@@ -85,7 +81,7 @@ function displayResults(responseJson){
                 <img src='${item.snippet.thumbnails.default.url}' alt="img">
                 <ul class="timeStampList">
                     <li class="timeStampItem">
-                    <p class="timeStamp"><span class="min">3</span>:<span class="sec">45</span></p>
+                    <p class="timeStamp"><span class="min">3</span>:<span class="sec">45</span> - <span class="message">Time stamp message</span></p>
                     </li>
                 </ul>
             </a>
@@ -93,7 +89,7 @@ function displayResults(responseJson){
         }
             $('.playlistItemsContainer').on('click', '.playlistItem', function(){
                 event.stopPropagation();
-               let videoId = $(this).attr('id');
+                let videoId = $(this).attr('id');
                 displayVideo(videoId, 0);
             });
     }
@@ -104,7 +100,7 @@ function displayVideo(videoId, seconds){
     $('#video').html(`
     <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}?start=${seconds}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <form id="timeStampForm">
-    <legend>New Time Stamp</legend>
+    <legend>Add a new time stamp</legend>
     <label for="minInput">Minute</label>
     <input type="number" id="minInput" class="minInput" placeholder="00"></input>
     <label for="secInput">Second</label>
@@ -121,12 +117,10 @@ function displayVideo(videoId, seconds){
 function watchForm(videoId){
     $('#timeStampForm').on('submit', function(event){
         event.preventDefault();
-        let min = $('.minInput').val();
-        let sec = $('.secInput').val();
-        let message = $('.timeStampMessageInput').val();
-        // let videoLength = $('form').closest('.ytp-time-duration').innerHtml;
+        const min = $('.minInput').val();
+        const sec = $('.secInput').val();
+        const message = $('.timeStampMessageInput').val();
         const listItem = $('.playlistItemsContainer').find(`#${videoId}`);
-        console.log(listItem);
         update(listItem, min, sec, message);
     })
 }
@@ -142,10 +136,10 @@ function update(listItem, min, sec, message){
 function timeStampListener(){
      $('.timeStampList').on('click', '.timeStampItem', function(event){
         event.stopPropagation();
-        let videoId = $(this).closest('.playlistItem').attr('id');
+        const videoId = $(this).closest('.playlistItem').attr('id');
         const min = Number($(this).find('.min').html());
         const sec = Number($(this).find('.sec').html());
-        let totalSec = ( 60 * min) + sec;
+        const totalSec = ( 60 * min) + sec;
         displayVideo(videoId, totalSec);
     });
 }
