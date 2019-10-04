@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>YouTube</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <style>
+        .red{
+            color: red;
+        }
+    </style>
+    <body>
+        <h1>YouTube App</h1>
+        <form id="playlistForm">
+<legend>Add a new playlist</legend>
+<label for="playlistIdInput">Playlist Id</label>
+<input id="playlistIdInput" placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc" value="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
+<button type="submit">Submit</button>
+        </form>
+
+        <h2>Playlists:</h2>
+       <ul class="playlistsContainer">
+
+       </ul>
+
+<h2>Results</h2>
+<div id="video" ></div>
+<ul class="playlistItemsContainer"></ul>
+
+
+        <script src="assets/js/jquery-3.4.1.min.js"></script>
+        <!-- <script src="assets/js/main.js" ></script> -->
+        <script src="assets/js/playlist.js" ></script>
+    </body>
+</html>

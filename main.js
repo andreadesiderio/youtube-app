@@ -1,11 +1,12 @@
 'use strict'
+// const playlistEndpoint = '/playlists';
+// const channelId = 'UCCwuSfyX1D8yzdLFYAe1V8Q';
+let playlistId = ['PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA', 'PLWWwA08a1OR-Sruf_9UtGIVYdcTaIkmZz'];
 const key = 'AIzaSyCK0Go8xquMoUGq1szMVeaHU5NcepoHwi4';
 const baseUrl = 'https://www.googleapis.com/youtube/v3';
-const playlistEndpoint = '/playlists';
- const playlistItemEndpoint = '/playlistItems';
- let playlistId = ['PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA', 'PLWWwA08a1OR-Sruf_9UtGIVYdcTaIkmZz'];
- let playlistId = 'PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA';
-const channelId = 'UCCwuSfyX1D8yzdLFYAe1V8Q';
+const playlistItemEndpoint = '/playlistItems';
+let playlistId = 'PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA';
+
 
 
 
@@ -104,5 +105,5 @@ function displayVideo(videoId, seconds){
 }
 
 
-$(fetchUrl);
+// $(fetchUrl);
 
