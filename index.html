@@ -6,27 +6,46 @@
         <title>YouTube</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="assets/css/normalise.css">
+        <link rel="stylesheet" href="assets/css/main.css">
     </head>
    
     <body>
+        <header>
+                <h1>YouTube Playlist App</h1>
+        </header>
 
-        <h1>YouTube App</h1>
-        <h2>Playlists:</h2>
-        <p>Choose a playlist</p>
-        <ul class="playlistsContainer"></ul>
+        <main>
+            <section id="playlistCollectionSection">
+                <h2>Playlist Collection</h2>
+                <p class="instructions">Choose a playlist</p>
+                <ul class="playlistsContainer"></ul>
+                <button class="playlistFormToggler">Add a Playlist</button>
+            </section>
 
-        <form id="playlistForm">
-            <legend>Add a new playlist</legend>
-            <label for="playlistIdInput">Playlist Id</label>
-            <input id="playlistIdInput" placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc" value="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
-            <button type="submit">Submit</button>
-        </form>
-        
-        <h2>Results</h2>
-        <p>Choose a video</p>
-        <div id="video" ></div>
-        <ul class="playlistItemsContainer"></ul>
+            <button id="playlistCollectionSectionOpener" class="nodisplay">Back to Collectoion</button>
+
+            
+            <form id="playlistForm" class="nodisplay">
+                <button class="playlistFormCloser">X</button>
+                <legend class="instructions">Add a new playlist</legend>
+                <p class="instructions">Ex. PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc <a href="http://www.slickremix.com/wp-content/uploads/2013/08/Screen-Shot-2015-05-08-at-2.25.24-AM.png" target="_blank">Where to find a Plylist Id</a></p>
+                
+                <label for="playlistIdInput">Playlist Id</label>
+                <input id="playlistIdInput" required placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
+                <button type="submit">Submit</button>
+            </form>
+
+            <section id="videoPlayerSection">
+                <div id="videoContainer"></div>
+            </section>
+
+            <section class="nodisplay" id="playlistVideosSection">
+                <h2 class="playlistTitle"></h2>
+                <p class="instructions">Choose a video</p>
+                <ul class="playlistItemsContainer"></ul>
+            </section>
+        </main>
 
 
         <script src="assets/js/jquery-3.4.1.min.js"></script>
