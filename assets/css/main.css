@@ -50,6 +50,7 @@ ul{
     bottom: 0;
     margin: 10px;
     background-color: red; 
+    z-index: 10;
 }
 
 
@@ -83,8 +84,8 @@ ul{
 }
 
 .thumbnailAndTimestamps{
-    margin: 20px;
     padding: 14px 20px;
+    width: 80%;
 }
 
 .thumbnailAndTimestamps img{
@@ -93,13 +94,13 @@ ul{
 
 .timeStampList{
     display: inline-block;
-    position: relative;
+    position: absolute;
     background-color: #ffffff;
-    height: 90px;
-    top: -68px;
+   height: 90px;
+     /* top: -68px; */
     padding: 5px 10px;
-    width: 60%;
-    text-align: left;
+    width: 50%;
+    text-align: left; 
 }
 
 .nodisplay{
