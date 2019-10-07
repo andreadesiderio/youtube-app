@@ -1,10 +1,12 @@
 'use strict'
- const playlistEndpoint = '/playlists';
+ 
 // const channelId = 'UCCwuSfyX1D8yzdLFYAe1V8Q';
 let playlistIdArr = ['PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA', 'PLWWwA08a1OR-Sruf_9UtGIVYdcTaIkmZz'];
 const key = 'AIzaSyCK0Go8xquMoUGq1szMVeaHU5NcepoHwi4';
 const baseUrl = 'https://www.googleapis.com/youtube/v3';
 const playlistItemEndpoint = '/playlistItems';
+const playlistEndpoint = '/playlists';
+
 
 function queryString(playlistId, endpoint){
     let params = {
@@ -22,7 +24,7 @@ function queryString(playlistId, endpoint){
     return queryItems.join('&');
 }
 
-function fetchUrl(id, endpoint){
+function fetchUrl(id, endpoint, playlistsContainer){
     const url = baseUrl + endpoint + '?' + queryString(id, endpoint);
     fetch(url)
     .then(response => {
@@ -31,16 +33,16 @@ function fetchUrl(id, endpoint){
         }
         throw new Error(response.statusText);
     })
-    .then(responseJson => displayResults(responseJson))
+    .then(responseJson => displayResults(responseJson, playlistsContainer))
     .catch(error => console.log(error.message))
 }
 
-function displayResults(responseJson){
+function displayResults(responseJson, playlistsContainer){
     if (responseJson.kind == 'youtube#playlistListResponse'){
         for (let i = 0; i < responseJson.items.length; i++){
             let item = responseJson.items[i];
             let id = item.id
-            $('.playlistsContainer').append(
+            playlistsContainer.append(
             `<li class="playlist" id="${id}">
             <h3 class="playlistCollectionItemTitle" id="${item.snippet.title}">${item.snippet.title}</h3>
             <img src="${item.snippet.thumbnails.default.url}" alt="img"/>
@@ -65,22 +67,21 @@ function displayResults(responseJson){
     }
 }
 
-
-function watchFormOpener(){
+function watchFormOpener(playlistsContainer){
     $('.playlistFormToggler').on('click', function(event){
         event.stopPropagation();
         $('#playlistForm').removeClass('nodisplay');
         $('.playlistFormToggler').addClass('nodisplay');
-        watchPlaylistAddForm();
+        watchPlaylistAddForm(playlistsContainer);
     })
 }
 
-function watchPlaylistAddForm(){
+function watchPlaylistAddForm(playlistsContainer){
     watchPlaylistAddFormCloser();/// should this be on the bottom of the function?
     $('#playlistForm').on('submit', function(event){
         event.preventDefault();
         const playlistIdInput = $('#playlistIdInput').val();
-        $('.playlistsContainer').empty();
+        playlistsContainer.empty();
         $('.playlistItemsContainer').empty();
         playlistIdArr.push(playlistIdInput);
          $('#playlistForm').off('submit');
@@ -101,8 +102,8 @@ function watchPlaylistAddFormCloser(){
 }
 
 
-function watchPlaylistClick(){
-    $('.playlistsContainer').on('click', '.playlist', function(){
+function watchPlaylistClick(playlistsContainer){
+    playlistsContainer.on('click', '.playlist', function(){
         event.stopPropagation();
         $('.playlistItemsContainer').empty();
         let title = $(this).find('.playlistCollectionItemTitle').attr('id');
@@ -114,7 +115,6 @@ function watchPlaylistClick(){
         fetchUrl(playlistId, playlistItemEndpoint);
     });
 }
-
 
 function watchPlaylistCollectionSection(){
     if ($('#playlistCollectionSection').hasClass('nodisplay')){
@@ -187,10 +187,14 @@ function watchTimeStampClick(){
     });
 }
 
+
+
 $(function onload(){
-    fetchUrl(playlistIdArr, playlistEndpoint);
-    watchPlaylistClick();
-    watchFormOpener();
+        const playlistsContainer = $('.playlistsContainer');
+        console.log(playlistsContainer);
+    fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
+    watchPlaylistClick(playlistsContainer);
+    watchFormOpener(playlistsContainer);
     watchItemClick();
     watchTimeStampClick();///should this be here? 
 }); 
