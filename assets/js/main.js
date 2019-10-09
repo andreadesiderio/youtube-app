@@ -138,7 +138,6 @@ function watchPlaylistAddFormCloser(){
 
 function watchPlaylistClick(playlistsContainer){
     playlistsContainer.on('click', '.playlist', function(){
-        alert('playlist Click');
         event.stopPropagation();
         $('.playlistItemsContainer').empty();
          let title = $(this).find('.playlistCollectionItemTitle').attr('id');
@@ -167,7 +166,6 @@ function watchBackToCollection(){
 
 function watchItemClick(){
     $('.playlistItemsContainer').on('click', '.videoThumbnail', function(){
-        alert('item clicked');
         event.stopPropagation();
         let videoId = $(this).closest('.playlistItem').attr('id');
         let timeStampList = $(this).closest('.thumbnailAndTimestamps').find('.timeStampList').html();
