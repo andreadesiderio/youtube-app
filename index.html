@@ -5,47 +5,48 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>YouTube</title>
         <meta name="description" content="">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/css/normalise.css">
         <link rel="stylesheet" href="assets/css/main.css">
     </head>
    
     <body>
-        <header>
-                <h1>YouTube Playlist App</h1>
+        <header id="header">
+            <img id="logo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
+                <h1 class="header">Playlist App</h1>
+                <button class="openCollection">Open Playlist Collection</button>
         </header>
 
-        <main>
+        <main class="nodisplay">
+                <button class="nodisplay backToCollection" id="playlistCollectionSectionOpener">Back to Collection</button>
             <section id="playlistCollectionSection">
-                <h2>Playlist Collection</h2>
                 <p class="instructions">Choose a playlist</p>
                 <ul class="playlistsContainer"></ul>
-                <button class="playlistFormToggler">Add a Playlist</button>
+                <button class="playlistFormOpener">ADD A PLAYLIST</button>
             </section>
 
-            <button id="playlistCollectionSectionOpener" class="nodisplay">Back to Collectoion</button>
-
-            
-            <form id="playlistForm" class="nodisplay">
+            <form id="playlistAdder" class="nodisplay">
                 <button class="playlistFormCloser">X</button>
-                <legend class="instructions">Add a new playlist</legend>
-                <p class="instructions">(Example:)  PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc </p>
-                <p>Learn where to find a playlist id <a href="http://www.slickremix.com/wp-content/uploads/2013/08/Screen-Shot-2015-05-08-at-2.25.24-AM.png" target="_blank">here</a></p>
+                <legend class="formTitle">Add a new playlist Id</legend>
+                <p class="instructions">(Example:)</p>
+                <p class="instructions" id="exampleId" >PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc</p>
+                <p>Learn how to find a playlist id <a href="http://www.slickremix.com/wp-content/uploads/2013/08/Screen-Shot-2015-05-08-at-2.25.24-AM.png" target="_blank">here</a>.</p>
+                <br>
                 
-                <label for="playlistIdInput">Playlist Id</label>
+                <label for="playlistIdInput">Playlist Id :</label>
                 <input id="playlistIdInput" required placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
-                <button type="submit">Submit</button>
+                <button id="playlistSubmitButton" type="submit">Submit</button>
             </form>
 
-            <section id="videoPlayerSection">
+            <section class="nodisplay" id="videoPlayerSection">
                 <div id="videoContainer"></div>
             </section>
 
             <section class="nodisplay" id="playlistVideosSection">
-                <h2 class="playlistTitle"></h2>
                 <p class="instructions">Choose a video</p>
                 <ul class="playlistItemsContainer"></ul>
-            </section>
+            </section> 
         </main>
 
 

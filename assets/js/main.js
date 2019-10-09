@@ -45,50 +45,84 @@ function displayResults(responseJson, playlistsContainer){
             playlistsContainer.append(
             `<li class="playlist" id="${id}">
             <h3 class="playlistCollectionItemTitle" id="${item.snippet.title}">${item.snippet.title}</h3>
-            <img src="${item.snippet.thumbnails.default.url}" alt="img"/>
+            <img class="playlistThumbnail" src="${item.snippet.thumbnails.medium.url}" alt="img"/>
             </li>`
             );
         }    
     }
     if (responseJson.kind == 'youtube#playlistItemListResponse'){
-        console.log(responseJson);
         for(let i = 0 ; i < responseJson.items.length; i ++){
             let item = responseJson.items[i];
             let videoId = item.snippet.resourceId.videoId;
             $('.playlistItemsContainer').append(`
             <li class="playlistItem" id='${videoId}'>
-                <h4>${item.snippet.title}</h4>
+                <h4 class="itemTitle">${item.snippet.title}</h4>
                 <div class='thumbnailAndTimestamps'>
-                <a href="#videoContainer"><img src='${item.snippet.thumbnails.default.url}' class="videoThumbnail" alt="img"></a>
-                <ul class="timeStampList"></ul>
-                </a>
+                <a href="#header"><img src='${item.snippet.thumbnails.default.url}' class="videoThumbnail" alt="img"></a>
+                <ul class="timeStampList"><li class="timeStampItem">
+                <a href="#header"><p class="timeStamp"><span class="min">33</span>:<span class="sec">3</span> - <span class="message">message</span></p></a>
+                </li></ul>
+                </div>
             </li>`);
         }      
     }
 }
 
+function displayVideo(timeStampList, videoId, seconds){
+    $('#playlistCollectionSection').addClass('nodisplay');
+    $('#videoPlayerSection').removeClass('nodisplay'); 
+    // width="560" height="315" 
+    $('#videoContainer').html(`
+    <iframe src="https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div id="videoTimeStampListContainer" class="videoTimeStampListContainer"><ul class="timeStampList">${timeStampList}
+    </ul>
+    <a href="#videoTimeStampListContainer"<button class="openTimeStampForm">+ Add a timestamp</button></a>
+    </div>
+    <form class="nodisplay" id="timeStampForm">
+    <label for="minInput">Minute</label>
+    <input type="number" id="minInput" class="minInput" maxlength="2" placeholder="00"></input>
+    <label for="secInput">Second</label>
+    <input type="number" id="secInput" class="secInput" maxlength="2" placeholder="00"></input>
+    <br><br>
+    <label for="timeStampMessageInput">Notes</label>
+    <input type="text" class="timeStampMessageInput" id="timeStampMessageInput" placeholder="This is a timestamp note">
+    <button type="submit">Submit</button>
+    </form>
+    `);
+    watchOpenTimeStampForm();
+}
+
+function watchOpenTimeStampForm(videoId){
+$('.openTimeStampForm').on('click', function(){
+    $('#timeStampForm').removeClass('nodisplay');
+})
+    watchTimeStampForm(videoId);
+}
+
+
+
 function watchFormOpener(playlistsContainer){
-    $('.playlistFormToggler').on('click', function(event){
+    $('.playlistFormOpener').on('click', function(event){
         event.stopPropagation();
-        $('#playlistForm').removeClass('nodisplay');
-        $('.playlistFormToggler').addClass('nodisplay');
-        watchPlaylistAddForm(playlistsContainer);
+        $('#playlistAdder').removeClass('nodisplay');
+        $('.playlistFormOpener').addClass('nodisplay');
+        $('#playlistIdInput').focus();
+        watchPlaylistAdder(playlistsContainer);
     })
 }
 
-function watchPlaylistAddForm(playlistsContainer){
-    watchPlaylistAddFormCloser();/// should this be on the bottom of the function?
-    $('#playlistForm').on('submit', function(event){
+function watchPlaylistAdder(playlistsContainer){
+    $('#playlistAdder').on('submit', function(event){
         event.preventDefault();
         const playlistIdInput = $('#playlistIdInput').val();
         playlistsContainer.empty();
         $('.playlistItemsContainer').empty();
         playlistIdArr.push(playlistIdInput);
-         $('#playlistForm').off('submit');
+         $('#playlistAdder').off('submit');
         $('#playlistIdInput').val("");
-        $('#playlistForm').addClass('nodisplay');
-        $('.playlistFormToggler').removeClass('nodisplay');
-        fetchUrl(playlistIdArr, playlistEndpoint);
+        $('#playlistAdder').addClass('nodisplay');
+        $('.playlistFormOpener').removeClass('nodisplay');
+        fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
     })
 }
 
@@ -96,32 +130,35 @@ function watchPlaylistAddFormCloser(){
     $('.playlistFormCloser').on('click', function(event){
         event.stopPropagation();
         event.preventDefault();
-        $('#playlistForm').addClass('nodisplay');
-        $('.playlistFormToggler').removeClass('nodisplay');
+        $('#playlistAdder').addClass('nodisplay');
+        $('.playlistFormOpener').removeClass('nodisplay');
     })
 }
 
 
 function watchPlaylistClick(playlistsContainer){
     playlistsContainer.on('click', '.playlist', function(){
+        alert('playlist Click');
         event.stopPropagation();
         $('.playlistItemsContainer').empty();
-        let title = $(this).find('.playlistCollectionItemTitle').attr('id');
-        $('.playlistTitle').html(title);
+         let title = $(this).find('.playlistCollectionItemTitle').attr('id');
+        $('.header').html(`Playlist : ${title}`);
+        $('#logo').addClass('nodisplay');
          $('#playlistCollectionSection').addClass('nodisplay');
          $('#playlistVideosSection').removeClass('nodisplay');
         let playlistId = $(this).attr('id');
-        watchPlaylistCollectionSection();//// shoould the be after fetchurl?
+        watchBackToCollection();//// shoould the be after fetchurl?
         fetchUrl(playlistId, playlistItemEndpoint);
     });
 }
 
-function watchPlaylistCollectionSection(){
+function watchBackToCollection(){
     if ($('#playlistCollectionSection').hasClass('nodisplay')){
-        $('#playlistCollectionSectionOpener').removeClass('nodisplay');
-        $('#playlistCollectionSectionOpener').on('click', function(){
+        $('.backToCollection').removeClass('nodisplay');
+        $('.backToCollection').on('click', function(){
+        $('.header').html('Playlist Collection');
         $('#playlistCollectionSection').removeClass('nodisplay');
-        $('#playlistCollectionSectionOpener').addClass('nodisplay');
+        $('.backToCollection').addClass('nodisplay');
         $('#playlistVideosSection').addClass('nodisplay');
         $('#videoPlayerSection').addClass('nodisplay');  
         })
@@ -130,30 +167,25 @@ function watchPlaylistCollectionSection(){
 
 function watchItemClick(){
     $('.playlistItemsContainer').on('click', '.videoThumbnail', function(){
+        alert('item clicked');
         event.stopPropagation();
         let videoId = $(this).closest('.playlistItem').attr('id');
-        displayVideo(videoId, 0);
+        let timeStampList = $(this).closest('.thumbnailAndTimestamps').find('.timeStampList').html();
+        displayVideo(timeStampList, videoId, 0);
     });
 }
 
-function displayVideo(videoId, seconds){
-    $('#playlistCollectionSection').addClass('nodisplay');
-    $('#videoPlayerSection').removeClass('nodisplay'); 
-    $('#videoContainer').html(`
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <form id="timeStampForm">
-    <legend class="instructions">Add a new time stamp</legend>
-    <label for="minInput">Minute</label>
-    <input type="number" id="minInput" class="minInput" placeholder="00"></input>
-    <label for="secInput">Second</label>
-    <input type="number" id="secInput" class="secInput" placeholder="00"></input>
-    <label for="timeStampMessageInput">Notes</label>
-    <input type="text" class="timeStampMessageInput" id="timeStampMessageInput" placeholder="This is a timestamp note">
-    <button type="submit">Submit</button>
-    </form>
-    `);
-    watchTimeStampForm(videoId);
+
+
+function watchOpenCollection(){
+    $('.openCollection').on('click', function(){
+        $('#logo').addClass('nodisplay');
+        $('.openCollection').addClass('nodisplay');
+        $('main').removeClass('nodisplay');
+        $('.header').html(`Playlist Collection`);
+      })
 }
+
 
 function watchTimeStampForm(videoId){
     $('#timeStampForm').on('submit', function(event){
@@ -171,7 +203,7 @@ function watchTimeStampForm(videoId){
 function update(listItem, min, sec, message){
     let timeStampList = listItem.find('.timeStampList');
     timeStampList.append(`<li class="timeStampItem">
-    <a href="#videoContainer"><p class="timeStamp"><span class="min">${min}</span>:<span class="sec">${sec}</span> - <span class="message">${message}</span></p></a>
+    <a href="#header"><p class="timeStamp"><span class="min">${min}</span>:<span class="sec">${sec}</span> - <span class="message">${message}</span></p></a>
     </li>
     `);
 }
@@ -191,10 +223,11 @@ function watchTimeStampClick(){
 
 $(function onload(){
         const playlistsContainer = $('.playlistsContainer');
-        console.log(playlistsContainer);
     fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
+    watchOpenCollection();
     watchPlaylistClick(playlistsContainer);
     watchFormOpener(playlistsContainer);
+    watchPlaylistAddFormCloser();
     watchItemClick();
     watchTimeStampClick();///should this be here? 
 }); 
