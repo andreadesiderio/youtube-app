@@ -55,51 +55,51 @@ function displayResults(responseJson, playlistsContainer){
             let item = responseJson.items[i];
             let videoId = item.snippet.resourceId.videoId;
             $('.playlistItemsContainer').append(`
-            <li class="playlistItem" id='${videoId}'>
+            <li class="playlistItem" data_key="${videoId}">
                 <h4 class="itemTitle">${item.snippet.title}</h4>
                 <div class='thumbnailAndTimestamps'>
                 <a href="#header"><img src='${item.snippet.thumbnails.default.url}' class="videoThumbnail" alt="img"></a>
-                <ul class="timeStampList"><li class="timeStampItem">
-                <a href="#header"><p class="timeStamp"><span class="min">33</span>:<span class="sec">3</span> - <span class="message">message</span></p></a>
-                </li></ul>
+                <ul class="timeStampList ${videoId}" data_key="${videoId}">
+                <li class="timeStampItem" data_key="${videoId}">
+     <a href="#header"><p class="timeStamp"><span class="min">2</span>:<span class="sec">22</span> - <span class="message">message</span></p></a>
+     </li>
+</ul>
                 </div>
             </li>`);
         }      
     }
 }
 
-function displayVideo(timeStampList, videoId, seconds){
-    $('#playlistCollectionSection').addClass('nodisplay');
-    $('#videoPlayerSection').removeClass('nodisplay'); 
-    // width="560" height="315" 
-    $('#videoContainer').html(`
-    <iframe src="https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <div id="videoTimeStampListContainer" class="videoTimeStampListContainer"><ul class="timeStampList">${timeStampList}
-    </ul>
-    <a href="#videoTimeStampListContainer"<button class="openTimeStampForm">+ Add a timestamp</button></a>
-    </div>
-    <form class="nodisplay" id="timeStampForm">
-    <label for="minInput">Minute</label>
-    <input type="number" id="minInput" class="minInput" maxlength="2" placeholder="00"></input>
-    <label for="secInput">Second</label>
-    <input type="number" id="secInput" class="secInput" maxlength="2" placeholder="00"></input>
-    <br><br>
-    <label for="timeStampMessageInput">Notes</label>
-    <input type="text" class="timeStampMessageInput" id="timeStampMessageInput" placeholder="This is a timestamp note">
-    <button type="submit">Submit</button>
-    </form>
-    `);
-    watchOpenTimeStampForm();
+function watchOpenCollection(){
+    $('.openCollection').on('click', function(){
+        $('#logo').addClass('nodisplay');
+        $('.openCollection').addClass('nodisplay');
+        $('main').removeClass('nodisplay');
+        $('.header').html(`Playlist Collection`);
+      })
 }
-
-function watchOpenTimeStampForm(videoId){
-$('.openTimeStampForm').on('click', function(){
-    $('#timeStampForm').removeClass('nodisplay');
-})
-    watchTimeStampForm(videoId);
+function watchPlaylistAddFormCloser(){
+    $('.playlistFormCloser').on('click', function(event){
+        event.stopPropagation();
+        event.preventDefault();
+        $('#playlistAdder').addClass('nodisplay');
+        $('.playlistFormOpener').removeClass('nodisplay');
+    })
 }
-
-
+function watchPlaylistClick(playlistsContainer){
+    playlistsContainer.on('click', '.playlist', function(){
+        event.stopPropagation();
+        $('.playlistItemsContainer').empty();
+         let title = $(this).find('.playlistCollectionItemTitle').attr('id');
+        $('.header').html(`Playlist : ${title}`);
+        $('#logo').addClass('nodisplay');
+         $('#playlistCollectionSection').addClass('nodisplay');
+         $('#playlistVideosSection').removeClass('nodisplay');
+        let playlistId = $(this).attr('id');
+         watchBackToCollection();
+        fetchUrl(playlistId, playlistItemEndpoint);
+    });
+}
 
 function watchFormOpener(playlistsContainer){
     $('.playlistFormOpener').on('click', function(event){
@@ -110,7 +110,6 @@ function watchFormOpener(playlistsContainer){
         watchPlaylistAdder(playlistsContainer);
     })
 }
-
 function watchPlaylistAdder(playlistsContainer){
     $('#playlistAdder').on('submit', function(event){
         event.preventDefault();
@@ -126,32 +125,6 @@ function watchPlaylistAdder(playlistsContainer){
     })
 }
 
-function watchPlaylistAddFormCloser(){
-    $('.playlistFormCloser').on('click', function(event){
-        event.stopPropagation();
-        event.preventDefault();
-        $('#playlistAdder').addClass('nodisplay');
-        $('.playlistFormOpener').removeClass('nodisplay');
-    })
-}
-
-
-function watchPlaylistClick(playlistsContainer){
-    playlistsContainer.on('click', '.playlist', function(){
-        alert('playlist Click');
-        event.stopPropagation();
-        $('.playlistItemsContainer').empty();
-         let title = $(this).find('.playlistCollectionItemTitle').attr('id');
-        $('.header').html(`Playlist : ${title}`);
-        $('#logo').addClass('nodisplay');
-         $('#playlistCollectionSection').addClass('nodisplay');
-         $('#playlistVideosSection').removeClass('nodisplay');
-        let playlistId = $(this).attr('id');
-        watchBackToCollection();//// shoould the be after fetchurl?
-        fetchUrl(playlistId, playlistItemEndpoint);
-    });
-}
-
 function watchBackToCollection(){
     if ($('#playlistCollectionSection').hasClass('nodisplay')){
         $('.backToCollection').removeClass('nodisplay');
@@ -164,72 +137,91 @@ function watchBackToCollection(){
         })
     }
 }
-
 function watchItemClick(){
     $('.playlistItemsContainer').on('click', '.videoThumbnail', function(){
-        alert('item clicked');
         event.stopPropagation();
-        let videoId = $(this).closest('.playlistItem').attr('id');
-        let timeStampList = $(this).closest('.thumbnailAndTimestamps').find('.timeStampList').html();
-        displayVideo(timeStampList, videoId, 0);
+        //give videoId as a class '.playlistItem.${}'
+        let videoId = $(this).closest('.playlistItem').attr("data_key");
+        console.log(videoId);
+        displayVideo(videoId, 0);
     });
 }
-
-
-
-function watchOpenCollection(){
-    $('.openCollection').on('click', function(){
-        $('#logo').addClass('nodisplay');
-        $('.openCollection').addClass('nodisplay');
-        $('main').removeClass('nodisplay');
-        $('.header').html(`Playlist Collection`);
-      })
+function displayVideo(videoId, seconds){
+    $('#playlistCollectionSection').addClass('nodisplay');
+    $('#videoPlayerSection').removeClass('nodisplay'); 
+    // width="560" height="315" 
+    $('#videoContainer').html(`
+    <iframe src="https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    `);
+    displayVideoTimeStampList(videoId);
+    
+}
+// `[data-slide='${current}']`
+function displayVideoTimeStampList(videoId){
+     let timeStampList = $('.playlistItemsContainer').find(`.playlistItem[data_key='${videoId}']`).find(`.timeStampList.${videoId}`).html();
+     const videoTimeStampList = $('.videoTimeStampListContainer').find('.timeStampList');
+    //  .addClass(`${videoId}`).
+     videoTimeStampList.attr({'class': `timeStampList ${videoId}`, data_key:`${videoId}`});
+     videoTimeStampList.html(timeStampList);
+    console.log(timeStampList);
+    watchOpenTimeStampForm();
 }
 
-
-function watchTimeStampForm(videoId){
+function watchOpenTimeStampForm(){
+    $('.openTimeStampForm').on('click', function(){
+        $('.openTimeStampForm').addClass('nodisplay');
+        $('.timeStampFormContainer').removeClass('nodisplay');
+        $('#minInput').focus();
+    })
+}
+    
+function watchTimeStampForm(){
     $('#timeStampForm').on('submit', function(event){
         event.preventDefault();
+        let videoId = $('.videoTimeStampListContainer').find('.timeStampList').attr('data_key');
         const min = $('.minInput').val();
         const sec = $('.secInput').val();
         const message = $('.timeStampMessageInput').val();
-        const listItem = $('.playlistItemsContainer').find(`#${videoId}`);
         alert(`Timestamp: "${min}:${sec} - ${message}" has been added to your list`);
-        $('#timeStampForm').children('input').val('');
-        update(listItem, min, sec, message);
+        $('.timeStampFormContainer').addClass('nodisplay');
+        $('#timeStampForm input').val('');
+        $('.openTimeStampForm').removeClass('nodisplay');
+        update(videoId, min, sec, message);
     })
 }
 
-function update(listItem, min, sec, message){
-    let timeStampList = listItem.find('.timeStampList');
-    timeStampList.append(`<li class="timeStampItem">
-    <a href="#header"><p class="timeStamp"><span class="min">${min}</span>:<span class="sec">${sec}</span> - <span class="message">${message}</span></p></a>
+function update(videoId, min, sec, message){
+    let timeStampList = $(`.timeStampList.${videoId}`);
+    timeStampList.append(`<li class="timeStampItem" data_key="${videoId}">
+    <a href="#header"><p class="timeStamp"><span
+    class="min">${min}</span>:<span class="sec">${sec}<span> - <span class="message">${message}</span></p></a>
     </li>
     `);
+    displayVideoTimeStampList(videoId);
 }
+
 
 function watchTimeStampClick(){
-        $('.playlistItemsContainer').on('click', '.timeStamp', function(event){
-        event.stopPropagation();
-        const videoId = $(this).closest('.playlistItem').attr('id');
-        const min = Number($(this).find('.min').html());
-        const sec = Number($(this).find('.sec').html());
-        const totalSec = ( 60 * min) + sec;
-        displayVideo(videoId, totalSec);
-    });
+    $('.timeStampContainer').on('click', '.timeStamp', function(event){
+     event.stopPropagation();
+    const videoId = $(this).closest('.timeStampItem').attr('data_key');
+     const min = Number($(this).find('.min').html());
+     const sec = Number($(this).find('.sec').html());
+     const totalSec = ( 60 * min) + sec;
+     displayVideo(videoId, totalSec);
+});
 }
 
-
-
 $(function onload(){
-        const playlistsContainer = $('.playlistsContainer');
+    const playlistsContainer = $('.playlistsContainer');
     fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
-    watchOpenCollection();
-    watchPlaylistClick(playlistsContainer);
-    watchFormOpener(playlistsContainer);
-    watchPlaylistAddFormCloser();
-    watchItemClick();
-    watchTimeStampClick();///should this be here? 
+     watchOpenCollection();
+     watchPlaylistClick(playlistsContainer);
+     watchFormOpener(playlistsContainer);
+     watchTimeStampForm();
+    // watchPlaylistAddFormCloser();
+     watchItemClick();
+    watchTimeStampClick();
 }); 
 
 

@@ -65,7 +65,7 @@ h1{
     
 } */
 
-
+/* videoTimeStampListContainer */
 
 main{
     text-align: center;
@@ -190,8 +190,9 @@ ul{
     background-color: #ffffff;
     line-height: initial;
     text-align: left;
-    padding: 0 10px 5px 10px;
-    margin-bottom: 15px;
+    padding: 0 10px 10px 10px;
+    /* margin-bottom: 15px; */
+    border-top: 1px solid grey;
 }
 .videoTimeStampListContainer .timeStampList{
     height: initial;
@@ -206,25 +207,50 @@ ul{
 
  #timeStampForm{
     /* margin-top: 20px; */
-    padding: 14px;
-    padding-top: 0;
+    /* padding: 14px;
+    padding-top: 0; */
+    padding: 0;
     line-height: initial;
-    text-align: left;
+     /* text-align: center;  */
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 } 
 
 #timeStampForm .instructions{
 text-align: center;
 }
 
+#timeStampForm *{
+    border: none;
 
-.minInput, .secInput{
+}
+/* .minInputContainer, .secInputContainer{
     max-width: 45px;
+} */
+
+
+ .minInputContainer, .secInputContainer, .messageInputContainer{
+    display: inline-block;
+    flex-basis: 0;
+    margin: 5px;
+} 
+
+ .minInput, .secInput{
+    width: 100%;
     padding: 0;
+    text-align: center; 
+} 
+
+.messageInputContainer{
+    text-align: left;
 }
 
-.timeStampMessageInput{
+ .timeStampMessageInput{
     padding: 0;
-}
+} 
 
 
 /* .playlistItem{
