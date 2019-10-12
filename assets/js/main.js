@@ -125,6 +125,31 @@ function watchPlaylistAdder(playlistsContainer){
     })
 }
 
+function watchPlaylistAddFormCloser(){
+    $('.playlistFormCloser').on('click', function(event){
+        event.stopPropagation();
+        event.preventDefault();
+        $('#playlistAdder').addClass('nodisplay');
+        $('.playlistFormOpener').removeClass('nodisplay');
+    })
+}
+
+function watchPlaylistClick(playlistsContainer){
+    playlistsContainer.on('click', '.playlist', function(){
+        event.stopPropagation();
+        $('.playlistItemsContainer').empty();
+         let title = $(this).find('.playlistCollectionItemTitle').attr('id');
+        $('.header').html(`Playlist : ${title}`);
+        $('#logo').addClass('nodisplay');
+         $('#playlistCollectionSection').addClass('nodisplay');
+         $('#playlistVideosSection').removeClass('nodisplay');
+        let playlistId = $(this).attr('id');
+        watchBackToCollection();//// shoould the be after fetchurl?
+        fetchUrl(playlistId, playlistItemEndpoint);
+    });
+}
+
+
 function watchBackToCollection(){
     if ($('#playlistCollectionSection').hasClass('nodisplay')){
         $('.backToCollection').removeClass('nodisplay');
