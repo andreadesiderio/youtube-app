@@ -60,15 +60,18 @@ function displayResults(responseJson, playlistsContainer){
                 <div class='thumbnailAndTimestamps'>
                 <a href="#header"><img src='${item.snippet.thumbnails.default.url}' class="videoThumbnail" alt="img"></a>
                 <ul class="timeStampList ${videoId}" data_key="${videoId}">
-                <li class="timeStampItem" data_key="${videoId}">
-     <a href="#header"><p class="timeStamp"><span class="min">2</span>:<span class="sec">22</span> - <span class="message">message</span></p></a>
-     </li>
 </ul>
                 </div>
             </li>`);
         }      
     }
 }
+
+
+/* <li class="timeStampItem" data_key="${videoId}">
+<a href="#header"><p class="timeStamp"><span class="min">2</span>:<span class="sec">22</span> - <span class="message">message</span></p></a>
+</li> */
+
 
 function watchOpenCollection(){
     $('.openCollection').on('click', function(){
@@ -219,22 +222,21 @@ function update(videoId, min, sec, message){
     let timeStampList = $(`.timeStampList.${videoId}`);
     timeStampList.append(`<li class="timeStampItem" data_key="${videoId}">
     <a href="#header"><p class="timeStamp"><span
-    class="min">${min}</span>:<span class="sec">${sec}<span> - <span class="message">${message}</span></p></a>
+    class="min">${min}</span>:<span class="sec">${sec}</span> - <span class="message">${message}</span></p></a>
     </li>
     `);
     displayVideoTimeStampList(videoId);
 }
 
-
 function watchTimeStampClick(){
-    $('.timeStampContainer').on('click', '.timeStamp', function(event){
+    $('body').on('click', '.timeStamp', function(event){
      event.stopPropagation();
     const videoId = $(this).closest('.timeStampItem').attr('data_key');
      const min = Number($(this).find('.min').html());
      const sec = Number($(this).find('.sec').html());
-     const totalSec = ( 60 * min) + sec;
+     let totalSec = ( 60 * min) + sec;
      displayVideo(videoId, totalSec);
-});
+    })
 }
 
 $(function onload(){
