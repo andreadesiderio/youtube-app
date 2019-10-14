@@ -138,7 +138,6 @@ function watchPlaylistAddFormCloser(){
 
 function watchPlaylistClick(playlistsContainer){
     playlistsContainer.on('click', '.playlist', function(){
-        alert('playlist Click');
         event.stopPropagation();
         $('.playlistItemsContainer').empty();
          let title = $(this).find('.playlistCollectionItemTitle').attr('id');
@@ -147,7 +146,7 @@ function watchPlaylistClick(playlistsContainer){
          $('#playlistCollectionSection').addClass('nodisplay');
          $('#playlistVideosSection').removeClass('nodisplay');
         let playlistId = $(this).attr('id');
-        watchBackToCollection();//// shoould the be after fetchurl?
+        watchBackToCollection();
         fetchUrl(playlistId, playlistItemEndpoint);
     });
 }
@@ -179,7 +178,7 @@ function watchItemClick(){
 
 function watchOpenCollection(){
     $('.openCollection').on('click', function(){
-        $('#logo').addClass('nodisplay');
+        // $('#logo').addClass('nodisplay');
         $('.openCollection').addClass('nodisplay');
         $('main').removeClass('nodisplay');
         $('.header').html(`Playlist Collection`);
