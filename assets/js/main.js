@@ -128,7 +128,7 @@ function watchPlaylistClick(playlistsContainer){
          $('#playlistVideosSection').find('.playlistItemsContainer').attr('id', `${title}`);
          $('#playlistVideosSection').removeClass('nodisplay');
          $('#playlistCollectionSectionOpener').addClass('backToCollection');
-         $('#playlistCollectionSectionOpener').html("Back To Collection");
+         $('#playlistCollectionSectionOpener').html(`<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Collection`);
          $('#playlistCollectionSectionOpener').removeClass('nodisplay');
         let playlistId = $(this).attr('id');
         fetchUrl(playlistId, playlistItemEndpoint);
@@ -149,7 +149,7 @@ function watchBackTo(){
     $('#videoPlayerSection').addClass('nodisplay'); 
     $('#playlistVideosSection').removeClass('nodisplay');
     $('#playlistCollectionSectionOpener').removeClass('backToPlaylist');
-    $('#playlistCollectionSectionOpener').html('Back To Collection');
+    $('#playlistCollectionSectionOpener').html('<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Collection');
     $('#playlistCollectionSectionOpener').addClass('backToCollection');
     let title = 
     $('#playlistVideosSection').find('.playlistItemsContainer').attr('id');
@@ -178,7 +178,7 @@ function watchOpenCollection(){
 function displayVideo(videoId, seconds){
     $('#playlistCollectionSectionOpener').removeClass('backToCollection');
     $('#playlistCollectionSectionOpener').addClass('backToPlaylist');
-    $('#playlistCollectionSectionOpener').html('Back To Playlist');
+    $('#playlistCollectionSectionOpener').html('<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Playlist');
     $('#playlistVideosSection').addClass('nodisplay');
     $('.header').html('YouTube Playlist App');
     $('#videoPlayerSection').removeClass('nodisplay'); 

@@ -13,6 +13,9 @@ nav{
     padding: 18px;
     border-bottom: 3px solid lightgrey;
     margin-bottom: 30px;
+     display: flex; 
+    vertical-align: middle;
+    z-index: 1030;
 }
 
 header{
@@ -36,7 +39,7 @@ h1{
     letter-spacing: -0.09rem;
 }
 
-.openCollection, #playlistCollectionSectionOpener{
+.openCollection{
     background-color: #cc0000;
     border: none;
     color: #ffffff;
@@ -46,34 +49,27 @@ h1{
     font-weight: bold;
     letter-spacing: -0.01rem;
     margin-top: 20px; 
-    /* font-size: 30px; */
     width: 70%;
-    
 }
 
+#youtubeArrow{
+    width: 30px;
+}
 
 #playlistCollectionSectionOpener{
-    margin: 10px;
-    position: fixed;
-    top:0;
-    left: 0;
-}
-
-/* .backToCollection{
-    background-color: #cc0000;
     border: none;
-    color: #ffffff;
-    font-size: 14px;
-    padding: 10px 14px;
-    margin: 10px;
+    font-size: 18px;
+    padding: 0;
     font-family: 'Roboto', sans-serif; 
     font-weight: bold;
-    letter-spacing: -0.03rem;
-    
-} */
-
-/* videoTimeStampListContainer */
-
+    letter-spacing: -0.01rem;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding-bottom: 5px;
+}
 main{
     text-align: center;
     width: 100%;
@@ -82,17 +78,13 @@ main{
     background-color: whitesmoke;
     border-top: 3px solid lightgrey;
 }
-
-
 .formTitle, h2, h3, h4 {
     font-size: 18px;
     font-weight: 700;
 }
-
 ul{
     list-style: none;
 }
-
 .instructions{
     color: grey;
     padding-bottom: 10px;
@@ -123,7 +115,7 @@ ul{
 .playlistThumbnail{
     width: 100%;
 }
- .playlistFormOpener{
+.playlistFormOpener{
     background-color: #cc0000;
     border: none;
     color: #ffffff;
@@ -175,7 +167,6 @@ ul{
     font-size: 0;
     display: flex;
     flex-direction: row;
-    /* align-items: stretch; */
 }
 .videoThumbnail{
     display: inline-block;
@@ -198,7 +189,6 @@ ul{
     line-height: initial;
     text-align: left;
     padding: 0 10px 10px 10px;
-    /* margin-bottom: 15px; */
     border-top: 1px solid grey;
 }
 .videoTimeStampListContainer .timeStampList{
