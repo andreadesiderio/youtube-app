@@ -67,12 +67,6 @@ function displayResults(responseJson, playlistsContainer){
     }
 }
 
-
-/* <li class="timeStampItem" data_key="${videoId}">
-<a href="#header"><p class="timeStamp"><span class="min">2</span>:<span class="sec">22</span> - <span class="message">message</span></p></a>
-</li> */
-
-
 function watchOpenCollection(){
     $('.openCollection').on('click', function(){
         $('#logo').addClass('nodisplay');
@@ -88,20 +82,6 @@ function watchPlaylistAddFormCloser(){
         $('#playlistAdder').addClass('nodisplay');
         $('.playlistFormOpener').removeClass('nodisplay');
     })
-}
-function watchPlaylistClick(playlistsContainer){
-    playlistsContainer.on('click', '.playlist', function(){
-        event.stopPropagation();
-        $('.playlistItemsContainer').empty();
-         let title = $(this).find('.playlistCollectionItemTitle').attr('id');
-        $('.header').html(`Playlist : ${title}`);
-        $('#logo').addClass('nodisplay');
-         $('#playlistCollectionSection').addClass('nodisplay');
-         $('#playlistVideosSection').removeClass('nodisplay');
-        let playlistId = $(this).attr('id');
-         watchBackToCollection();
-        fetchUrl(playlistId, playlistItemEndpoint);
-    });
 }
 
 function watchFormOpener(playlistsContainer){
@@ -145,53 +125,65 @@ function watchPlaylistClick(playlistsContainer){
         $('.header').html(`Playlist : ${title}`);
         $('#logo').addClass('nodisplay');
          $('#playlistCollectionSection').addClass('nodisplay');
+         $('#playlistVideosSection').find('.playlistItemsContainer').attr('id', `${title}`);
          $('#playlistVideosSection').removeClass('nodisplay');
+         $('#playlistCollectionSectionOpener').addClass('backToCollection');
+         $('#playlistCollectionSectionOpener').html("Back To Collection");
+         $('#playlistCollectionSectionOpener').removeClass('nodisplay');
         let playlistId = $(this).attr('id');
-        watchBackToCollection();//// shoould the be after fetchurl?
         fetchUrl(playlistId, playlistItemEndpoint);
     });
 }
 
-
-function watchBackToCollection(){
-    if ($('#playlistCollectionSection').hasClass('nodisplay')){
-        $('.backToCollection').removeClass('nodisplay');
-        $('.backToCollection').on('click', function(){
-        $('.header').html('Playlist Collection');
-        $('#playlistCollectionSection').removeClass('nodisplay');
-        $('.backToCollection').addClass('nodisplay');
+function watchBackTo(){
+ $('#playlistCollectionSectionOpener').on('click', function(){
+     if ($('#playlistCollectionSectionOpener').hasClass('backToCollection')){
         $('#playlistVideosSection').addClass('nodisplay');
-        $('#videoPlayerSection').addClass('nodisplay');  
-        })
-    }
+        $('#playlistCollectionSection').removeClass('nodisplay');
+        $('#playlistCollectionSectionOpener').addClass('nodisplay');
+        $('#playlistCollectionSectionOpener').removeClass('backToCollection');
+        $('.header').html(`Playlist Collection`);
+     }
+  if ($('#playlistCollectionSectionOpener').hasClass('backToPlaylist')){
+    $('#videoPlayerSection').empty();
+    $('#videoPlayerSection').addClass('nodisplay'); 
+    $('#playlistVideosSection').removeClass('nodisplay');
+    $('#playlistCollectionSectionOpener').removeClass('backToPlaylist');
+    $('#playlistCollectionSectionOpener').html('Back To Collection');
+    $('#playlistCollectionSectionOpener').addClass('backToCollection');
+    let title = 
+    $('#playlistVideosSection').find('.playlistItemsContainer').attr('id');
+    $('.header').html(`Playlist : ${title}`);
+  }
+})
 }
+
 function watchItemClick(){
     $('.playlistItemsContainer').on('click', '.videoThumbnail', function(){
         event.stopPropagation();
-        //give videoId as a class '.playlistItem.${}'
         let videoId = $(this).closest('.playlistItem').attr("data_key");
-        console.log(videoId);
         displayVideo(videoId, 0);
     });
 }
 function displayVideo(videoId, seconds){
-    $('#playlistCollectionSection').addClass('nodisplay');
+    $('#playlistCollectionSectionOpener').removeClass('backToCollection');
+    $('#playlistCollectionSectionOpener').addClass('backToPlaylist');
+    $('#playlistCollectionSectionOpener').html('Back To Playlist');
+    $('#playlistVideosSection').addClass('nodisplay');
+    $('.header').html('YouTube Playlist App');
     $('#videoPlayerSection').removeClass('nodisplay'); 
     // width="560" height="315" 
     $('#videoContainer').html(`
     <iframe src="https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     `);
-    displayVideoTimeStampList(videoId);
-    
+    displayVideoTimeStampList(videoId);  
 }
-// `[data-slide='${current}']`
+
 function displayVideoTimeStampList(videoId){
      let timeStampList = $('.playlistItemsContainer').find(`.playlistItem[data_key='${videoId}']`).find(`.timeStampList.${videoId}`).html();
      const videoTimeStampList = $('.videoTimeStampListContainer').find('.timeStampList');
-    //  .addClass(`${videoId}`).
      videoTimeStampList.attr({'class': `timeStampList ${videoId}`, data_key:`${videoId}`});
      videoTimeStampList.html(timeStampList);
-    console.log(timeStampList);
     watchOpenTimeStampForm();
 }
 
@@ -243,10 +235,10 @@ $(function onload(){
     const playlistsContainer = $('.playlistsContainer');
     fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
      watchOpenCollection();
+     watchBackTo();
      watchPlaylistClick(playlistsContainer);
      watchFormOpener(playlistsContainer);
      watchTimeStampForm();
-    // watchPlaylistAddFormCloser();
      watchItemClick();
     watchTimeStampClick();
 }); 

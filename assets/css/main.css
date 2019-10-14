@@ -32,7 +32,7 @@ h1{
     letter-spacing: -0.09rem;
 }
 
-.openCollection, .backToCollection{
+.openCollection, #playlistCollectionSectionOpener{
     background-color: #cc0000;
     border: none;
     color: #ffffff;
@@ -45,7 +45,7 @@ h1{
 }
 
 
-.backToCollection{
+#playlistCollectionSectionOpener{
     margin: 10px;
     position: fixed;
     top:0;
