@@ -21,13 +21,13 @@
         </header>
 
         <main class="nodisplay">
-                <button class="nodisplay backToCollection" id="playlistCollectionSectionOpener">Back to Collection</button>
+                <button class="nodisplay backToCollection" id="playlistCollectionSectionOpener"></button>
             <section id="playlistCollectionSection">
                 <p class="instructions">Choose a playlist</p>
                 <ul class="playlistsContainer"></ul>
                 <button class="playlistFormOpener">ADD A PLAYLIST</button>
             </section>
-
+            
             <form id="playlistAdder" class="nodisplay">
                 <button class="playlistFormCloser">X</button>
                 <legend class="formTitle">Add a new playlist Id</legend>
@@ -40,17 +40,41 @@
                 <input id="playlistIdInput" required placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
                 <button id="playlistSubmitButton" type="submit">Submit</button>
             </form>
-
+    
             <section class="nodisplay" id="videoPlayerSection">
                 <div id="videoContainer"></div>
+                <div id="videoTimeStampListContainer" class="videoTimeStampListContainer timeStampContainer">
+                <ul class="timeStampList"></ul>
+                <div class="nodisplay timeStampFormContainer">
+                    <form id="timeStampForm">
+                        <div class="minInputContainer">
+                            <label for="minInput">Min</label>
+                            <br>
+                            <input type="number" id="minInput" class="minInput" mx="999" placeholder="00">
+                        </div> 
+                        <div class="secInputContainer">
+                            <label for="secInput">Sec</label>
+                            <br>
+                            <input type="number" id="secInput" class="secInput" max="60" placeholder="00">
+                        </div>
+                        <div class="messageInputContainer">
+                            <label for="timeStampMessageInput">Note</label>
+                            </br>
+                            <input type="text" class="timeStampMessageInput" id="timeStampMessageInput" placeholder="This is a timestamp note">
+                            </div>
+                        <button type="submit">Add</button>
+                        </form>
+                    </div>
+                    <button class="openTimeStampForm">+ Add a timestamp</button>
+                </div>
             </section>
 
             <section class="nodisplay" id="playlistVideosSection">
                 <p class="instructions">Choose a video</p>
-                <ul class="playlistItemsContainer"></ul>
+                <ul class="playlistItemsContainer timeStampContainer"></ul>
             </section> 
         </main>
-
+      
 
         <script src="assets/js/jquery-3.4.1.min.js"></script>
         <script src="assets/js/main.js" ></script>
