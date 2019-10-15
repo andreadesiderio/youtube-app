@@ -13,9 +13,12 @@ nav{
     padding: 18px;
     border-bottom: 3px solid lightgrey;
     margin-bottom: 30px;
-     display: flex; 
+    display: flex; 
     vertical-align: middle;
     z-index: 1030;
+}
+#logo{
+    max-width: 100px; 
 }
 
 header{
@@ -24,11 +27,10 @@ header{
     align-items: center;
     margin-bottom: 25px; 
     padding-top: 80px; 
-
 }
-
-#logo{
-     width: 30%; 
+#headerLogo{
+    width: 200px;
+    margin-top: 30px;
 }
 
 h1{
@@ -65,10 +67,10 @@ h1{
     letter-spacing: -0.01rem;
     background-color: transparent;
     border: none;
-    display: flex;
-    align-items: center;
     height: 20px;
     padding-bottom: 5px;
+    display: flex;
+    align-items: center;
 }
 main{
     text-align: center;
@@ -82,6 +84,12 @@ main{
     font-size: 18px;
     font-weight: 700;
 }
+.playlistCollectionItemTitle{
+    font-size: 18px;
+    font-weight: 700;
+    padding: 14px 20px;
+}
+
 ul{
     list-style: none;
 }
@@ -98,9 +106,9 @@ ul{
 }
 
 .playlistsContainer, .playlistItemsContainer{ 
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .playlist, .playlistItem{
@@ -136,10 +144,7 @@ ul{
     font-weight: bold;
     border: none;
     background-color: transparent;
-    display: inline-block;
-    position: relative;
-    top: -8px;
-    left: 130px; 
+    margin-left: 90%;
     padding-bottom: 0;
 }
 #exampleId{
@@ -147,6 +152,14 @@ ul{
     white-space: nowrap;
     background-color: lightgrey;
     padding: 10px 14px;
+}
+
+.instructionLink{
+    color: #065fd4;
+}
+.itemTitle{
+    overflow: auto;
+    white-space: nowrap;
 }
 #playlistSubmitButton{
     background-color: #065fd4;
@@ -157,32 +170,46 @@ ul{
     font-family: 'Roboto', sans-serif; 
     font-weight: bold;
     letter-spacing: -0.03rem;
-    position: relative;
-    left : 100px;
-    top: 10px; 
-    margin: 10px;
+    margin: 10px; 
 }
 .thumbnailAndTimestamps{
     width: 100%;
-    font-size: 0;
-    display: flex;
-    flex-direction: row;
+     display: flex;
+    align-items: stretch; 
+     flex-direction: row; 
+     line-height: 0;
 }
 .videoThumbnail{
     display: inline-block;
+     height: 100%; 
+     width: 120px;
 }
+
 .timeStampList {
     display: inline-block;
    background-color: #ffffff;
-   height: 90px; 
     width: 100%; 
    font-size: initial;
     padding: 5px 10px;
     text-align: left;
+    line-height: initial;
 }
-#videoContainer{
+
+
+#videoPlayerSection{
     line-height: 0;
+     margin: auto; 
+     margin-top: 20px;
+    padding-bottom: 20px;
 }
+
+#videoContainer{
+height: 100%;
+}
+iframe{
+    height: 250px;
+    width: 100%;
+} 
 
 .videoTimeStampListContainer{
     background-color: #ffffff;
@@ -190,6 +217,8 @@ ul{
     text-align: left;
     padding: 0 10px 10px 10px;
     border-top: 1px solid grey;
+    width: 100%;
+    margin: auto;
 }
 .videoTimeStampListContainer .timeStampList{
     height: initial;
@@ -203,12 +232,8 @@ ul{
 }
 
  #timeStampForm{
-    /* margin-top: 20px; */
-    /* padding: 14px;
-    padding-top: 0; */
     padding: 0;
     line-height: initial;
-     /* text-align: center;  */
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
@@ -222,62 +247,91 @@ text-align: center;
 
 #timeStampForm *{
     border: none;
-
 }
-/* .minInputContainer, .secInputContainer{
-    max-width: 45px;
-} */
-
-
  .minInputContainer, .secInputContainer, .messageInputContainer{
     display: inline-block;
     flex-basis: 0;
     margin: 5px;
 } 
-
- .minInput, .secInput{
+.minInput, .secInput{
     width: 100%;
     padding: 0;
     text-align: center; 
 } 
-
 .messageInputContainer{
     text-align: left;
 }
-
- .timeStampMessageInput{
+.timeStampMessageInput{
     padding: 0;
 } 
-
-
-/* .playlistItem{
-    margin: 20px;
-    padding: 14px 20px;
-    background-color: whitesmoke;
-} */
-
-
-
-
-
-/* #playlistForm{
-    margin: 20px;
-    border: 1px solid black;
-    
-} */
-
-/* 
-
-#videoContainer{
-    margin: 20px;
-    padding: 14px 20px;
-} */
-
-
-
-
-
+#timeStampForm button{
+    padding: 0 14px;
+}
 .nodisplay{
     display: none;
 }
 
+@media screen and (min-width:500px){
+    .videoThumbnail{
+     width: 200px; 
+     }
+     iframe{
+        height: 350px;
+        max-width: 800px;
+    } 
+    .videoTimeStampListContainer{
+        max-width: 800px;
+    }
+    
+}
+
+@media screen and (min-width:700px){
+    .openCollection{
+        width: 30%;
+    }
+    .playlistCollectionItemTitle{
+        font-size: 23px;
+    }
+    .playlist, .playlistItem{
+        margin-bottom: 30px;
+    } 
+    .example{
+        padding: 0;
+    }
+    .thumbnailAndTimestamps{
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+
+    .videoThumbnail{
+        width: 640px;
+     } 
+     .timeStampList{
+         min-height: 100px;
+         max-width: 640px; 
+     }
+     iframe{
+         height: 500px;
+     }
+     .videoTimeStampListContainer .timeStampList{
+         min-height: 0px;
+     }
+}
+
+@media screen and (min-width:950px){
+    .playlistsContainer, .playlistItemsContainer{ 
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .playlist, .playlistItem{
+        width: 45%;
+        margin-bottom: 20px;
+    } 
+    .videoThumbnail{
+        width: 100%;
+    }
+    
+}
