@@ -12,32 +12,39 @@
     </head>
    
     <body>
+            <nav>
+                    <img id="logo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
+                    <div id="playlistCollectionSectionOpenerContainer" class="nodisplay">
+                    <button  id="playlistCollectionSectionOpener"></button>
+                    </div>
+            </nav>
         <header id="header">
-            <img id="logo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
-                <h1 class="header">Playlist App</h1>
+                <img id="headerLogo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
+               <h1 class="header">Playlist App</h1>
                 <button class="openCollection">Open Playlist Collection</button>
         </header>
 
         <main class="nodisplay">
-                <button class="nodisplay backToCollection" id="playlistCollectionSectionOpener"></button>
+                
             <section id="playlistCollectionSection">
                 <p class="instructions">Choose a playlist</p>
                 <ul class="playlistsContainer"></ul>
                 <button class="playlistFormOpener">ADD A PLAYLIST</button>
             </section>
-            
-            <form id="playlistAdder" class="nodisplay">
-                <button class="playlistFormCloser">X</button>
+            <div id="playlistAdderContainer" class="nodisplay">
+            <button class="playlistFormCloser">X</button>
+            <form id="playlistAdder">
                 <legend class="formTitle">Add a new playlist Id</legend>
-                <p class="instructions">(Example:)</p>
+                <p class="instructions example">(Example:)</p>
                 <p class="instructions" id="exampleId" >PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc</p>
-                <p>Learn how to find a playlist id <a href="http://www.slickremix.com/wp-content/uploads/2013/08/Screen-Shot-2015-05-08-at-2.25.24-AM.png" target="_blank">here</a>.</p>
+                <p class='instructionLink'>Learn how to find a playlist id <a href="http://www.slickremix.com/wp-content/uploads/2013/08/Screen-Shot-2015-05-08-at-2.25.24-AM.png" target="_blank">here</a>.</p>
                 <br>
                 
                 <label for="playlistIdInput">Playlist Id :</label>
                 <input id="playlistIdInput" required placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
                 <button id="playlistSubmitButton" type="submit">Submit</button>
             </form>
+        </div>
     
             <section class="nodisplay" id="videoPlayerSection">
                 <div id="videoContainer"></div>

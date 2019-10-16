@@ -38,6 +38,7 @@ function fetchUrl(id, endpoint, playlistsContainer){
 }
 
 function displayResults(responseJson, playlistsContainer){
+    console.log(responseJson);
     if (responseJson.kind == 'youtube#playlistListResponse'){
         for (let i = 0; i < responseJson.items.length; i++){
             let item = responseJson.items[i];
@@ -45,7 +46,7 @@ function displayResults(responseJson, playlistsContainer){
             playlistsContainer.append(
             `<li class="playlist" id="${id}">
             <h3 class="playlistCollectionItemTitle" id="${item.snippet.title}">${item.snippet.title}</h3>
-            <img class="playlistThumbnail" src="${item.snippet.thumbnails.medium.url}" alt="img"/>
+            <img class="playlistThumbnail" src="${item.snippet.thumbnails.standard.url}" alt="img"/>
             </li>`
             );
         }    
@@ -58,7 +59,7 @@ function displayResults(responseJson, playlistsContainer){
             <li class="playlistItem" data_key="${videoId}">
                 <h4 class="itemTitle">${item.snippet.title}</h4>
                 <div class='thumbnailAndTimestamps'>
-                <a href="#header"><img src='${item.snippet.thumbnails.default.url}' class="videoThumbnail" alt="img"></a>
+                <a href="#header"><img class="videoThumbnail" src='${item.snippet.thumbnails.standard.url}' alt="img"></a>
                 <ul class="timeStampList ${videoId}" data_key="${videoId}">
 </ul>
                 </div>
@@ -78,8 +79,7 @@ function watchOpenCollection(){
 function watchPlaylistAddFormCloser(){
     $('.playlistFormCloser').on('click', function(event){
         event.stopPropagation();
-        event.preventDefault();
-        $('#playlistAdder').addClass('nodisplay');
+        $('#playlistAdderContainer').addClass('nodisplay');
         $('.playlistFormOpener').removeClass('nodisplay');
     })
 }
@@ -87,7 +87,7 @@ function watchPlaylistAddFormCloser(){
 function watchFormOpener(playlistsContainer){
     $('.playlistFormOpener').on('click', function(event){
         event.stopPropagation();
-        $('#playlistAdder').removeClass('nodisplay');
+        $('#playlistAdderContainer').removeClass('nodisplay');
         $('.playlistFormOpener').addClass('nodisplay');
         $('#playlistIdInput').focus();
         watchPlaylistAdder(playlistsContainer);
@@ -102,18 +102,9 @@ function watchPlaylistAdder(playlistsContainer){
         playlistIdArr.push(playlistIdInput);
          $('#playlistAdder').off('submit');
         $('#playlistIdInput').val("");
-        $('#playlistAdder').addClass('nodisplay');
+        $('#playlistAdderContainer').addClass('nodisplay');
         $('.playlistFormOpener').removeClass('nodisplay');
         fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
-    })
-}
-
-function watchPlaylistAddFormCloser(){
-    $('.playlistFormCloser').on('click', function(event){
-        event.stopPropagation();
-        event.preventDefault();
-        $('#playlistAdder').addClass('nodisplay');
-        $('.playlistFormOpener').removeClass('nodisplay');
     })
 }
 
@@ -128,8 +119,8 @@ function watchPlaylistClick(playlistsContainer){
          $('#playlistVideosSection').find('.playlistItemsContainer').attr('id', `${title}`);
          $('#playlistVideosSection').removeClass('nodisplay');
          $('#playlistCollectionSectionOpener').addClass('backToCollection');
-         $('#playlistCollectionSectionOpener').html("Back To Collection");
-         $('#playlistCollectionSectionOpener').removeClass('nodisplay');
+         $('#playlistCollectionSectionOpener').html(`<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Collection`);
+         $('#playlistCollectionSectionOpenerContainer').removeClass('nodisplay');
         let playlistId = $(this).attr('id');
         fetchUrl(playlistId, playlistItemEndpoint);
     });
@@ -140,8 +131,9 @@ function watchBackTo(){
      if ($('#playlistCollectionSectionOpener').hasClass('backToCollection')){
         $('#playlistVideosSection').addClass('nodisplay');
         $('#playlistCollectionSection').removeClass('nodisplay');
-        $('#playlistCollectionSectionOpener').addClass('nodisplay');
+        $('#playlistCollectionSectionOpenerContainer').addClass('nodisplay');
         $('#playlistCollectionSectionOpener').removeClass('backToCollection');
+        $('#logo').removeClass('nodisplay');
         $('.header').html(`Playlist Collection`);
      }
   if ($('#playlistCollectionSectionOpener').hasClass('backToPlaylist')){
@@ -149,7 +141,7 @@ function watchBackTo(){
     $('#videoPlayerSection').addClass('nodisplay'); 
     $('#playlistVideosSection').removeClass('nodisplay');
     $('#playlistCollectionSectionOpener').removeClass('backToPlaylist');
-    $('#playlistCollectionSectionOpener').html('Back To Collection');
+    $('#playlistCollectionSectionOpener').html('<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Collection');
     $('#playlistCollectionSectionOpener').addClass('backToCollection');
     let title = 
     $('#playlistVideosSection').find('.playlistItemsContainer').attr('id');
@@ -165,10 +157,20 @@ function watchItemClick(){
         displayVideo(videoId, 0);
     });
 }
+
+function watchOpenCollection(){
+    $('.openCollection').on('click', function(){
+        $('#headerLogo').addClass('nodisplay');
+        $('.openCollection').addClass('nodisplay');
+        $('main').removeClass('nodisplay');
+        $('.header').html(`Playlist Collection`);
+      })
+    }
+
 function displayVideo(videoId, seconds){
     $('#playlistCollectionSectionOpener').removeClass('backToCollection');
     $('#playlistCollectionSectionOpener').addClass('backToPlaylist');
-    $('#playlistCollectionSectionOpener').html('Back To Playlist');
+    $('#playlistCollectionSectionOpener').html('<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Playlist');
     $('#playlistVideosSection').addClass('nodisplay');
     $('.header').html('YouTube Playlist App');
     $('#videoPlayerSection').removeClass('nodisplay'); 
@@ -235,13 +237,11 @@ $(function onload(){
     const playlistsContainer = $('.playlistsContainer');
     fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
      watchOpenCollection();
+     watchPlaylistAddFormCloser()
      watchBackTo();
      watchPlaylistClick(playlistsContainer);
      watchFormOpener(playlistsContainer);
      watchTimeStampForm();
      watchItemClick();
     watchTimeStampClick();
-}); 
-
-
-
+});
