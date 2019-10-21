@@ -11,77 +11,73 @@
         <link rel="stylesheet" href="assets/css/main.css">
     </head>
    
-    <body>
-            <nav>
-                    <img id="logo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
-                    <div id="playlistCollectionSectionOpenerContainer" class="nodisplay">
-                    <button  id="playlistCollectionSectionOpener"></button>
-                    </div>
-            </nav>
-        <header id="header">
-                <img id="headerLogo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
-               <h1 class="header">Playlist App</h1>
-                <button class="openCollection">Open Playlist Collection</button>
-        </header>
-
-        <main class="nodisplay">
-                
-            <section id="playlistCollectionSection">
-                <p class="instructions">Choose a playlist</p>
-                <ul class="playlistsContainer"></ul>
-                <button class="playlistFormOpener">ADD A PLAYLIST</button>
-            </section>
-            <div id="playlistAdderContainer" class="nodisplay">
-            <button class="playlistFormCloser">X</button>
-            <form id="playlistAdder">
-                <legend class="formTitle">Add a new playlist Id</legend>
-                <p class="instructions example">(Example:)</p>
-                <p class="instructions" id="exampleId" >PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc</p>
-                <p class='instructionLink'>Learn how to find a playlist id <a href="http://www.slickremix.com/wp-content/uploads/2013/08/Screen-Shot-2015-05-08-at-2.25.24-AM.png" target="_blank">here</a>.</p>
-                <br>
-                
-                <label for="playlistIdInput">Playlist Id :</label>
-                <input id="playlistIdInput" required placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
-                <button id="playlistSubmitButton" type="submit">Submit</button>
-            </form>
+<body>
+    <nav>
+        <img id="logo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
+        <div id="backToBtnDiv" class="nodisplay">
+            <button  id="backToBtn"></button>
         </div>
-    
-            <section class="nodisplay" id="videoPlayerSection">
-                <div id="videoContainer"></div>
-                <div id="videoTimeStampListContainer" class="videoTimeStampListContainer timeStampContainer">
-                <ul class="timeStampList"></ul>
-                <div class="nodisplay timeStampFormContainer">
-                    <form id="timeStampForm">
-                        <div class="minInputContainer">
-                            <label for="minInput">Min</label>
-                            <br>
-                            <input type="number" id="minInput" class="minInput" mx="999" placeholder="00">
-                        </div> 
-                        <div class="secInputContainer">
-                            <label for="secInput">Sec</label>
-                            <br>
-                            <input type="number" id="secInput" class="secInput" max="60" placeholder="00">
-                        </div>
-                        <div class="messageInputContainer">
-                            <label for="timeStampMessageInput">Note</label>
-                            </br>
-                            <input type="text" class="timeStampMessageInput" id="timeStampMessageInput" placeholder="This is a timestamp note">
-                            </div>
-                        <button type="submit">Add</button>
-                        </form>
+    </nav>
+    <header id="header">
+        <img id="headerLogo" src="https://raw.githubusercontent.com/Middi/youtube-api/master/images/logo.png">
+        <h1 class="header">Playlist App</h1>
+        <button class="openCollection">Open Playlist Collection</button>
+    </header>
+<main class="nodisplay">
+    <section id="playlistCollectionSection">
+        <p class="instructions">Choose a playlist</p>
+        <ul class="playlistsContainer"></ul>
+        <button class="playlistFormOpener">ADD A PLAYLIST</button>
+    </section>
+    <div id="playlistFormDiv" class="nodisplay">
+        <button class="playlistFormCloser">X</button>
+        <form id="playlistForm">
+        <legend class="formTitle">Add a new playlist Id</legend>
+        <p class="instructions example">(Example:)</p>
+        <p class="instructions" id="exampleId" >PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc</p>
+        <p class='instructionLink'>Learn how to find a playlist id <a href="http://www.slickremix.com/wp-content/uploads/2013/08/Screen-Shot-2015-05-08-at-2.25.24-AM.png" target="_blank">here</a>.</p>
+        <br>
+        <label for="playlistIdInput">Playlist Id :</label>
+        <input id="playlistIdInput" required placeholder="PLWWwA08a1OR8O61LKciQK1pls0zy0Vmxc">
+        <button id="playlistSubmitButton" type="submit">Submit</button>
+        </form>
+    </div>
+    <section class="nodisplay" id="videoPlayerSection">
+        <div id="videoContainer"></div>
+        <div id="videoTimeStampListDiv" class="videoTimeStampListContainer timeStampContainer">
+            <ul class="timeStampList"></ul>
+            <div id="timeStampFormDiv" class="nodisplay">
+                <form id="timeStampForm">
+                    <div class="minInputContainer">
+                        <label for="minInput">Min</label>
+                        <br>
+                        <input type="number" id="minInput" class="minInput" min="0" max="999" placeholder="00">
+                    </div> 
+                    <div class="secInputContainer">
+                        <label for="secInput">Sec</label>
+                        <br>
+                        <input type="number" id="secInput" class="secInput" min="0" max="60" placeholder="00">
                     </div>
-                    <button class="openTimeStampForm">+ Add a timestamp</button>
-                </div>
-            </section>
+                    <div class="messageInputContainer">
+                        <label for="timeStampMessageInput">Note</label>
+                        </br>
+                        <input type="text" class="timeStampMessageInput" id="timeStampMessageInput" placeholder="This is a timestamp note">
+                    </div>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+            <button id ="openTimeStampForm" class="openTimeStampForm">+ Add a timestamp</button>
+        </div>
+        </section>
 
-            <section class="nodisplay" id="playlistVideosSection">
-                <p class="instructions">Choose a video</p>
-                <ul class="playlistItemsContainer timeStampContainer"></ul>
-            </section> 
-        </main>
+        <section class="nodisplay" id="playlistVideosSection">
+            <p class="instructions">Choose a video</p>
+            <ul class="playlistItemsDiv timeStampContainer" id="playlistItemsDiv"></ul>
+        </section> 
+    </main>
       
 
-        <script src="assets/js/jquery-3.4.1.min.js"></script>
-        <script src="assets/js/main.js" ></script>
-    </body>
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/main.js" ></script>
+</body>
 </html>

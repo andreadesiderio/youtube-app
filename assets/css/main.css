@@ -58,7 +58,7 @@ h1{
     width: 30px;
 }
 
-#playlistCollectionSectionOpener{
+#backToBtn{
     border: none;
     font-size: 18px;
     padding: 0;
@@ -105,7 +105,7 @@ ul{
     padding-bottom: 20px;
 }
 
-.playlistsContainer, .playlistItemsContainer{ 
+.playlistsContainer, .playlistItemsDiv{ 
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -250,19 +250,21 @@ text-align: center;
 }
  .minInputContainer, .secInputContainer, .messageInputContainer{
     display: inline-block;
-    flex-basis: 0;
+    /* text-align: center; */
+    /* flex-basis: 0; */
     margin: 5px;
 } 
 .minInput, .secInput{
-    width: 100%;
-    padding: 0;
-    text-align: center; 
+    width: 2em;
+    padding: 0 5px;
+    text-align: left; 
 } 
 .messageInputContainer{
     text-align: left;
+    
 }
 .timeStampMessageInput{
-    padding: 0;
+    padding: 0 5px;
 } 
 #timeStampForm button{
     padding: 0 14px;
@@ -320,7 +322,7 @@ text-align: center;
 }
 
 @media screen and (min-width:950px){
-    .playlistsContainer, .playlistItemsContainer{ 
+    .playlistsContainer, #playlistItemsDiv{ 
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: space-around;
