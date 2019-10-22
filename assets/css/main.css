@@ -133,17 +133,20 @@ ul{
     font-weight: bold;
     letter-spacing: -0.05rem;
 }
+#playlistFormDiv{
+    background-color: #ffffff; 
+}
+
 #playlistForm{
-    border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
-    background-color: #ffffff;
+    /* background-color: #ffffff; */
     padding: 0 20px 14px 20px;
 }
 .playlistFormCloser{
     font-size: 20px;
     font-weight: bold;
     border: none;
-    background-color: transparent;
+    background-color: #ffffff;
     margin-left: 90%;
     padding-bottom: 0;
 }
@@ -152,6 +155,7 @@ ul{
     white-space: nowrap;
     background-color: lightgrey;
     padding: 10px 14px;
+    border-radius: 3px;
 }
 
 .instructionLink{
@@ -250,10 +254,15 @@ text-align: center;
 }
  .minInputContainer, .secInputContainer, .messageInputContainer{
     display: inline-block;
-    /* text-align: center; */
-    /* flex-basis: 0; */
     margin: 5px;
 } 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
 .minInput, .secInput{
     width: 2em;
     padding: 0 5px;
@@ -261,7 +270,6 @@ text-align: center;
 } 
 .messageInputContainer{
     text-align: left;
-    
 }
 .timeStampMessageInput{
     padding: 0 5px;

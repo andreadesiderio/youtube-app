@@ -226,11 +226,12 @@ function watchOpenTimeStampForm(timeStampFormDiv, openTimeStampForm){
     
 function formatNumerInput(num) {
     if (num.length < 1){
-       return  num = "00";
+       "00";
     }  
     else if (num.length < 2){
-        return num = 0 + num;
+        return '0' + num;
     } 
+    else return num;
   }
 
 function watchTimeStampForm(openTimeStampForm, timeStampFormDiv){
@@ -241,30 +242,17 @@ function watchTimeStampForm(openTimeStampForm, timeStampFormDiv){
         let sec = $('.secInput').val(); 
         min = formatNumerInput(min);
         sec = formatNumerInput(sec);
-        if (min.length < 1){
-            min = "00";
-        }  
-        else if (min.length < 2){
-            min = 0 + min
-        } 
-        if (sec.length < 1){
-            min = "00";
-        }  
-        else if (sec.length < 2){
-            min = 0 + min
-        } 
         const message = $('.timeStampMessageInput').val();
         alert(`Timestamp: "${min}:${sec} - ${message}" has been added to your list`);
         timeStampFormDiv.addClass('nodisplay');
         $('#timeStampForm input').val('');
         openTimeStampForm.removeClass('nodisplay');
-         update(videoId, min, sec, message);
+        update(videoId, min, sec, message);
     })
 }
 
 function update(videoId, min, sec, message){
     $(`.thumbnailAndTimestamps .timeStampList.${videoId}`).html("");
-    alert(videoId);
     timeStampListArr.push({
         id : videoId,
         min : min,
