@@ -1,7 +1,8 @@
-#YouTube App
+YouTube App
+
 An application that can save multiple YouTube playlists. The user can playlists and timestmps with comments to each video.
 [SEE IT LIVE](https://andreadesiderio.github.io/youtube-app/)
----
+
 
 ##Stack
 + Html
