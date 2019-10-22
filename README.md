@@ -31,8 +31,8 @@ Single playlist page
 Video section
 <img src="screenshots/videoSection.jpg" >
 
-Form section to add a timstamp
 Form section to add a timestamp
 <img src="screenshots/timestampForm.jpg" >
 
+Timestamps save in the single playlist section as well
 <img src="screenshots/savedTimestamps.jpg" >
