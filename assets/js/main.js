@@ -58,7 +58,7 @@ function displayResults(responseJson, playlistsContainer){
             let item = responseJson.items[i];
             let id = item.id
             playlistsContainer.append(
-            `<li class="playlist" id="${id}">
+            `<li class="playlist ${item.snippet.title}" id="${id}">
             <h3 class="playlistCollectionItemTitle" id="${item.snippet.title}">${item.snippet.title}</h3>
             <img class="playlistThumbnail" src="${item.snippet.thumbnails.standard.url}" alt="img"/>
             </li>`
@@ -70,7 +70,7 @@ function displayResults(responseJson, playlistsContainer){
         for(let i = 0 ; i < responseJson.items.length; i ++){
             let item = responseJson.items[i];
             videoId = item.snippet.resourceId.videoId;
-            $('#playlistItemsDiv').append(`
+            $('.playlistItemsContainer').append(`
             <li class="playlistItem" data_key="${videoId}">
                 <h4 class="itemTitle">${item.snippet.title}</h4>
                 <div class='thumbnailAndTimestamps'>
@@ -83,7 +83,6 @@ function displayResults(responseJson, playlistsContainer){
         }    
     }
 }
-
 
 function watchFormOpener(playlistsContainer, playlistFormDiv, playlistForm){
     $('.playlistFormOpener').on('click', function(event){
@@ -124,11 +123,12 @@ function watchPlaylistClick(backToBtn, playlistsContainer, playlistCollectionSec
         event.stopPropagation();
         $('.playlistItemsContainer').html("");
         $('.thumbnailAndTimestamps .timeStampList').html("");
-         let title = $(this).find('.playlistCollectionItemTitle').attr('id');
-        $('.header').html(`Playlist : ${title}`);
+         let playlistTitle = $(this).find('.playlistCollectionItemTitle').attr('id');
+         $('.header').attr({'id':`${playlistTitle}`});
+        $('.header').html(`Playlist : ${playlistTitle}`);
         $('#logo').addClass('nodisplay');
         playlistCollectionSection.addClass('nodisplay');
-         $('#playlistVideosSection').find('.playlistItemsContainer').attr('id', `${title}`);
+         $('#playlistVideosSection').find('.playlistItemsContiner').attr('id', `${playlistTitle}`);
          $('#playlistVideosSection').removeClass('nodisplay');
          backToBtn.addClass('backToCollection');
          showBackToBtn();
@@ -138,11 +138,10 @@ function watchPlaylistClick(backToBtn, playlistsContainer, playlistCollectionSec
 }
 
 function watchItemClick(backToBtn){
-    $('#playlistItemsDiv').on('click', '.videoThumbnail', function(){
+    $('.playlistItemsContainer').on('click', '.videoThumbnail', function(){
         event.stopPropagation();
         let videoId = $(this).closest('.playlistItem').attr("data_key");
         backToBtn.removeClass('backToCollection');
-        showBackToBtn();
         backToBtn.addClass('backToPlaylist');
         showBackToBtn();
         displayVideo(videoId, 0);
@@ -151,7 +150,8 @@ function watchItemClick(backToBtn){
 
 function displayVideo(videoId, seconds){
     $('#playlistVideosSection').addClass('nodisplay');
-    $('.header').html('YouTube Playlist App');
+    let playlistTitle = $('.header').attr('id');
+    $('.header').html(`Video from "${playlistTitle}"`);
     $('#videoPlayerSection').removeClass('nodisplay'); 
     $('#videoContainer').html(`
     <iframe src="https://www.youtube.com/embed/${videoId}?start=${seconds}&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -179,6 +179,7 @@ function watchBackTo(playlistCollectionSection, backToBtn, playlistVideosSection
         $('#backToBtnDiv').addClass('nodisplay');
         backToBtn.removeClass('backToCollection');
         $('#logo').removeClass('nodisplay');
+        $('.header').attr({'id':""});
         $('.header').html(`Playlist Collection`);
      }
   if (backToBtn.hasClass('backToPlaylist')){
@@ -188,9 +189,8 @@ function watchBackTo(playlistCollectionSection, backToBtn, playlistVideosSection
     backToBtn.removeClass('backToPlaylist');
     backToBtn.html('<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Collection');
     backToBtn.addClass('backToCollection');
-    let title = 
-    playlistVideosSection.find('.playlistItemsContainer').attr('id');
-    $('.header').html(`Playlist : ${title}`);
+    let playlistTitle = $('.header').attr('id');
+     $('.header').html(`Playlist : "${playlistTitle}"`);
   }
 })
 }
