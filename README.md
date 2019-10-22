@@ -1,26 +1,26 @@
-#YouTube App
+# YouTube App
 An application that can save multiple YouTube playlists. The user can playlists and timestmps with comments to each video.
 [SEE IT LIVE](https://andreadesiderio.github.io/youtube-app/)
 
 
-##Stack
+## Stack
 + Html
 + Css
 + Javascript
 + Jquery
 
 
-##Motivation
+## Motivation
 I wanted a place to save timestamps for videos without having to post them on the actual YouTube website. 
 
 
-##Screenshots
+## Screenshots
 
 Landing Page
 <img src="screenshots/home.jpg" >
 
 Saved playlists
-<img src="screenshots/playlistColection.jpg" >
+<img src="screenshots/playlistCollection.jpg" >
 
 Form section to add a playlist
 <img src="screenshots/addPlaylistForm.jpg" >
