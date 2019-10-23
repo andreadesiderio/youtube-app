@@ -1,7 +1,6 @@
 'luse strict'
  
-// const channelId = 'UCCwuSfyX1D8yzdLFYAe1V8Q';
-// PLWWwA08a1OR-Sruf_9UtGIVYdcTaIkmZz
+
 let playlistIdArr = ['PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA', 'PLWWwA08a1OR-Sruf_9UtGIVYdcTaIkmZz'];
 const key = 'AIzaSyCK0Go8xquMoUGq1szMVeaHU5NcepoHwi4';
 const baseUrl = 'https://www.googleapis.com/youtube/v3';
@@ -12,7 +11,7 @@ const timeStampListArr = [];
 function queryString(playlistId, endpoint){
     let params = {
         key : key,
-        part : "snippet"
+        part : 'snippet'
     };
     if (endpoint == playlistEndpoint){
         params.id = playlistIdArr;
@@ -81,7 +80,7 @@ function displayResults(responseJson, playlistsContainer){
             <li class="playlistItem" data_key="${videoId}">
                 <h4 class="itemTitle">${item.snippet.title}</h4>
                 <div class='thumbnailAndTimestamps'>
-                    <a href="#header"><img class="videoThumbnail" src='${item.snippet.thumbnails.standard.url}' alt="img"></a>
+                    <a href="#header"><img class="videoThumbnail" src="${item.snippet.thumbnails.standard.url}" alt="img"></a>
                     <ul class="timeStampList ${videoId}" data_key="${videoId}">
                     </ul>
                 </div>
@@ -91,6 +90,7 @@ function displayResults(responseJson, playlistsContainer){
     }
 }
 
+//Add a new playlist 
 function watchFormOpener(playlistsContainer, playlistFormDiv, playlistForm){
     $('.playlistFormOpener').on('click', function(event){
         event.stopPropagation();
@@ -125,6 +125,7 @@ function watchPlaylistFormCloser(playlistFormDiv){
     })
 }
 
+//handle playlist clicks
 function watchPlaylistClick(backToBtn, playlistsContainer, playlistCollectionSection){
     playlistsContainer.on('click', '.playlist', function(){
         event.stopPropagation();
@@ -166,6 +167,7 @@ function displayVideo(videoId, seconds){
      displayVideoTimeStampList(videoId);
 }
 
+//Backtracking functionality
 function showBackToBtn(){
     const backToBtnDiv = $('#backToBtnDiv');
     const backToBtn = $('#backToBtn');
@@ -202,6 +204,7 @@ function watchBackTo(playlistCollectionSection, backToBtn, playlistVideosSection
 })
 }
 
+//Timestamps
 function displayVideoTimeStampList(videoId){
     let list = $(`.thumbnailAndTimestamps .timeStampList.${videoId}`).html();
     const videoTimeStampList = $('#videoTimeStampListDiv').find('.timeStampList');
@@ -221,7 +224,6 @@ function displayTimeStampList(videoId){
         }
     }
 }
-
 
 function watchOpenTimeStampForm(timeStampFormDiv, openTimeStampForm){
     openTimeStampForm.on('click', function(){
