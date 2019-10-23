@@ -260,13 +260,16 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
     -webkit-appearance: none;
     -moz-appearance: none;
+    -ms-appearance: none;
     appearance: none;
     margin: 0; 
 }
+
 .minInput, .secInput{
     width: 2em;
     padding: 0 5px;
     text-align: left; 
+    -moz-appearance: textfield;
 } 
 .messageInputContainer{
     text-align: left;
