@@ -9,7 +9,6 @@ const playlistItemEndpoint = '/playlistItems';
 const playlistEndpoint = '/playlists';
 const timeStampListArr = [];
 
-
 function queryString(playlistId, endpoint){
     let params = {
         key : key,
@@ -27,7 +26,7 @@ function queryString(playlistId, endpoint){
 }
 
 function fetchUrl(id, endpoint, playlistsContainer){
-    const url = baseUrl + endpoint + '?' + queryString(id, endpoint);
+    let url = baseUrl + endpoint + '?' + queryString(id, endpoint);
     fetch(url)
     .then(response => {
         if (response.ok){
@@ -49,8 +48,16 @@ function watchOpenCollection(){
     }
 
 function displayErrorMessage(message){
+    console.log(error);
     $('#header').html(`Error : ${message}`);
 }
+
+function camelize(str){
+    return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+      if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+      return index == 0 ? match.toLowerCase() : match.toUpperCase();
+    });
+  }
 
 function displayResults(responseJson, playlistsContainer){
     if (responseJson.kind == 'youtube#playlistListResponse'){
@@ -58,7 +65,7 @@ function displayResults(responseJson, playlistsContainer){
             let item = responseJson.items[i];
             let id = item.id
             playlistsContainer.append(
-            `<li class="playlist ${item.snippet.title}" id="${id}">
+            `<li class="playlist ${camelize(item.snippet.title)}" id="${id}">
             <h3 class="playlistCollectionItemTitle" id="${item.snippet.title}">${item.snippet.title}</h3>
             <img class="playlistThumbnail" src="${item.snippet.thumbnails.standard.url}" alt="img"/>
             </li>`
@@ -133,7 +140,7 @@ function watchPlaylistClick(backToBtn, playlistsContainer, playlistCollectionSec
          backToBtn.addClass('backToCollection');
          showBackToBtn();
         let playlistId = $(this).attr('id');
-        fetchUrl(playlistId, playlistItemEndpoint);
+        fetchUrl(playlistId, playlistItemEndpoint, playlistsContainer);
     });
 }
 
