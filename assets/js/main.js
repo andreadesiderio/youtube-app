@@ -25,7 +25,9 @@ function queryString(playlistId, endpoint){
 }
 
 function fetchUrl(id, endpoint, playlistsContainer){
+    console.log('fetch: ' + id);
     let url = baseUrl + endpoint + '?' + queryString(id, endpoint);
+    console.log(url);
     fetch(url)
     .then(response => {
         if (response.ok){
@@ -59,6 +61,7 @@ function camelize(str){
   }
 
 function displayResults(responseJson, playlistsContainer){
+    console.log(responseJson);
     if (responseJson.kind == 'youtube#playlistListResponse'){
         for (let i = 0; i < responseJson.items.length; i++){
             let item = responseJson.items[i];
@@ -108,7 +111,8 @@ function watchPlaylistForm(playlistsContainer, playlistFormDiv, playlistForm){
         playlistsContainer.empty();
         $('.playlistItemsContainer').empty();
         playlistIdArr.push(playlistIdInput);
-         playlistForm.off('submit');
+        console.log(playlistIdArr);
+        //  playlistForm.off('submit');
         $('#playlistIdInput').val("");
         playlistFormDiv.addClass('nodisplay');
         $('.playlistFormOpener').removeClass('nodisplay');
