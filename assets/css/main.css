@@ -174,15 +174,16 @@ ul{
 }
 .thumbnailAndTimestamps{
     width: 100%;
+    min-height: 90px;
      display: flex;
-    align-items: stretch; 
+     align-items: stretch; 
      flex-direction: row; 
      line-height: 0;
 }
 .videoThumbnail{
     display: inline-block;
      height: 100%; 
-     width: 120px;
+      width: 120px; 
 }
 
 .timeStampList {
@@ -305,7 +306,7 @@ text-align: center;
     }
 
     .videoThumbnail{
-        width: 640px;
+       width: 640px;
      } 
      .timeStampList{
          min-height: 100px;
@@ -323,15 +324,34 @@ text-align: center;
     .playlistsContainer, .playlistItemsContainer{ 
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: space-evenly;
         align-items: center;
     }
     .playlist, .playlistItem{
-        width: 45%;
+        width: 45%; 
         margin-bottom: 20px;
     } 
-    .videoThumbnail{
-        width: 100%;
+    .playlistItem{ 
+        margin: 20px;
+    } 
+    .timeStampList:not(.videoTimeStampListContainer.timeStampList){
+        width: 420px;
     }
-    
+    .videoThumbnail{
+        width: 420px;
+    }
 }
+
+@media screen and (min-width:1200px){
+    .playlist, .playlistItem{
+        width: 300px; 
+        margin: 20px;
+    } 
+    .timeStampList:not(.videoTimeStampListContainer.timeStampList){
+        width: 300px;
+    }
+    .videoThumbnail{
+        width: 300px;
+    }
+
+} 

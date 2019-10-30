@@ -1,7 +1,7 @@
 'use strict'
  
 // const channelId = 'UCCwuSfyX1D8yzdLFYAe1V8Q';
-let playlistIdArr = ['PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA', 'PLWWwA08a1OR-Sruf_9UtGIVYdcTaIkmZz'];
+let playlistIdArr = ['PLWWwA08a1OR9570cEKm0dw-MG19E9ZCVA','PLWWwA08a1OR-Sruf_9UtGIVYdcTaIkmZz'];
 const key = 'AIzaSyCK0Go8xquMoUGq1szMVeaHU5NcepoHwi4';
 const baseUrl = 'https://www.googleapis.com/youtube/v3';
 const playlistItemEndpoint = '/playlistItems';
@@ -21,11 +21,13 @@ function queryString(playlistId, endpoint){
     }
     const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`);
+    console.log(queryItems.join('&'));
     return queryItems.join('&');
 }
 
 function fetchUrl(id, endpoint, playlistsContainer){
     const url = baseUrl + endpoint + '?' + queryString(id, endpoint);
+    console.log(url);
     fetch(url)
     .then(response => {
         if (response.ok){
@@ -33,20 +35,31 @@ function fetchUrl(id, endpoint, playlistsContainer){
         }
         throw new Error(response.statusText);
     })
-    .then(responseJson => displayResults(responseJson, playlistsContainer))
-    .catch(error => console.log(error.message))
+    .then((responseJson) => {
+        displayResults(responseJson, playlistsContainer);
+    })
+    .catch(error => {alert(error.message); console.log(error)} )
 }
 
 function displayResults(responseJson, playlistsContainer){
     console.log(responseJson);
     if (responseJson.kind == 'youtube#playlistListResponse'){
+        if(responseJson.items.length !== playlistIdArr.length){
+            alert (`There is a problem with one or more of your playlits. Please make sure your playlist is set to "Public" and that the id is correct.`);
+            }
         for (let i = 0; i < responseJson.items.length; i++){
             let item = responseJson.items[i];
-            let id = item.id
+            let id = item.id;
+            let thumbnail;
+            if (item.snippet.thumbnails.standard){
+                thumbnail = item.snippet.thumbnails.standard.url;
+            }
+            else{
+                thumbnail = item.snippet.thumbnails.default.url}
             playlistsContainer.append(
             `<li class="playlist" id="${id}">
             <h3 class="playlistCollectionItemTitle" id="${item.snippet.title}">${item.snippet.title}</h3>
-            <img class="playlistThumbnail" src="${item.snippet.thumbnails.standard.url}" alt="img"/>
+            <img class="playlistThumbnail" src="${thumbnail}" alt="img"/>
             </li>`
             );
         }    
@@ -55,11 +68,17 @@ function displayResults(responseJson, playlistsContainer){
         for(let i = 0 ; i < responseJson.items.length; i ++){
             let item = responseJson.items[i];
             let videoId = item.snippet.resourceId.videoId;
+            let thumbnail;
+            if (item.snippet.thumbnails.standard){
+                thumbnail = item.snippet.thumbnails.standard.url;
+            }
+            else{
+                thumbnail = item.snippet.thumbnails.default.url}
             $('.playlistItemsContainer').append(`
             <li class="playlistItem" data_key="${videoId}">
                 <h4 class="itemTitle">${item.snippet.title}</h4>
                 <div class='thumbnailAndTimestamps'>
-                <a href="#header"><img class="videoThumbnail" src='${item.snippet.thumbnails.standard.url}' alt="img"></a>
+                <a href="#header"><img class="videoThumbnail" src='${thumbnail}' alt="img"></a>
                 <ul class="timeStampList ${videoId}" data_key="${videoId}">
 </ul>
                 </div>
@@ -102,6 +121,7 @@ function watchPlaylistAdder(playlistsContainer){
         playlistIdArr.push(playlistIdInput);
          $('#playlistAdder').off('submit');
         $('#playlistIdInput').val("");
+        alert(`Playlist id : ${playlistIdInput} has been added to your list`)
         $('#playlistAdderContainer').addClass('nodisplay');
         $('.playlistFormOpener').removeClass('nodisplay');
         fetchUrl(playlistIdArr, playlistEndpoint, playlistsContainer);
@@ -122,7 +142,7 @@ function watchPlaylistClick(playlistsContainer){
          $('#playlistCollectionSectionOpener').html(`<img id="youtubeArrow" src="assets/Youtube-128.png">Back To Collection`);
          $('#playlistCollectionSectionOpenerContainer').removeClass('nodisplay');
         let playlistId = $(this).attr('id');
-        fetchUrl(playlistId, playlistItemEndpoint);
+        fetchUrl(playlistId, playlistItemEndpoint, playlistsContainer);
     });
 }
 
