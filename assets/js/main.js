@@ -106,10 +106,12 @@ function watchPlaylistAddFormCloser(){
 function watchFormOpener(playlistsContainer){
     $('.playlistFormOpener').on('click', function(event){
         event.stopPropagation();
+        setTimeout(()=>{
         $('#playlistAdderContainer').removeClass('nodisplay');
         $('.playlistFormOpener').addClass('nodisplay');
         $('#playlistIdInput').focus();
         watchPlaylistAdder(playlistsContainer);
+        }, 500)
     })
 }
 function watchPlaylistAdder(playlistsContainer){
@@ -131,6 +133,10 @@ function watchPlaylistAdder(playlistsContainer){
 function watchPlaylistClick(playlistsContainer){
     playlistsContainer.on('click', '.playlist', function(){
         event.stopPropagation();
+        if(!$('#playlistAdderContainer').hasClass('nodisplay')){
+            $('#playlistAdderContainer').addClass('nodisplay');
+            $('.playlistFormOpener').removeClass('nodisplay')
+        }
         $('.playlistItemsContainer').empty();
          let title = $(this).find('.playlistCollectionItemTitle').attr('id');
         $('.header').html(`Playlist : ${title}`);
