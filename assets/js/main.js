@@ -130,7 +130,7 @@ function watchPlaylistForm(playlistsContainer, playlistFormDiv, playlistForm){
         playlistsContainer.empty();
         $('.playlistItemsContainer').empty();
         playlistIdArr.push(playlistIdInput);
-        //  playlistForm.off('submit');
+        playlistForm.off('submit');
         $('#playlistIdInput').val("");
         playlistFormDiv.addClass('nodisplay');
         alert(`Playlist id : ${playlistIdInput} has been added to your list`)
