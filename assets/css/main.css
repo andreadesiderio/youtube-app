@@ -11,22 +11,27 @@ nav{
     width: 100%;
     background-color: whitesmoke;
     padding: 18px;
-    border-bottom: 3px solid lightgrey;
+    /* border-bottom: 3px solid lightgrey; */
     margin-bottom: 30px;
     display: flex; 
     vertical-align: middle;
     z-index: 1030;
+    -webkit-box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.5);
+-moz-box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.5);
+ box-shadow: 0px 1px 10px 1px rgba(0,0,0,0.5);
 }
 #logo{
     max-width: 100px; 
 }
 
 header{
-     display: flex;
+     /* display: flex;
     flex-direction: column; 
-    align-items: center;
+    align-items: center; */
     margin-bottom: 25px; 
     padding-top: 80px; 
+    margin: auto;
+    text-align: center;
 }
 #headerLogo{
     width: 200px;
@@ -45,14 +50,27 @@ h1{
     background-color: #cc0000;
     border: none;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 18px;
     padding: 10px 14px;
     font-family: 'Roboto', sans-serif; 
     font-weight: bold;
     letter-spacing: -0.01rem;
-    margin-top: 20px; 
+    margin-top: 30px; 
     width: 70%;
+    transition: transform 300ms;
+    -webkit-box-shadow: -1px 4px 7px 3px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 4px 7px 3px rgba(0,0,0,0.75);
+    box-shadow: -1px 4px 7px 3px rgba(0,0,0,0.75);
 }
+
+.openCollection:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    -webkit-box-shadow: -10px 10px 16px 4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -10px 10px 16px 4px rgba(0,0,0,0.75);
+    box-shadow: -10px 10px 16px 4px rgba(0,0,0,0.75);
+}
+
 
 #youtubeArrow{
     width: 30px;
@@ -77,8 +95,8 @@ main{
     width: 100%;
     margin: auto;
     padding-top: 0;
-    background-color: whitesmoke;
-    border-top: 3px solid lightgrey;
+    /* background-color: whitesmoke;
+    border-top: 3px solid lightgrey; */
 }
 .formTitle, h2, h3, h4 {
     font-size: 18px;
@@ -114,6 +132,14 @@ ul{
 .playlist, .playlistItem{
     width: 95%;
     margin-bottom: 20px;
+    border: 1px solid whitesmoke;
+    border-radius: 3px;
+    /* box-shadow: 0 5px 15px 0 rgba(0, 0, 0, .5); */
+} 
+
+ .playlist:hover, .playlistItem:hover{
+     cursor: pointer;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, .5);
 } 
 
 .playlistCollectionItemTitle{
@@ -124,17 +150,35 @@ ul{
     width: 100%;
 }
 .playlistFormOpener{
-    background-color: #cc0000;
+     background-color: #cc0000; 
     border: none;
+    border-bottom: 3px solid #8a0f0f;
     color: #ffffff;
     font-size: 14px;
+    text-shadow: 0px -2px #BD3E31;
     padding: 10px 14px;
     font-family: 'Roboto', sans-serif; 
     font-weight: bold;
     letter-spacing: -0.05rem;
+    /* linear-gradient(hsl(0, 100%, 35%)5%lighter, hsl(0, 100%, 40%)#cc0000, hsl(0, 100%, 45%)5%darker); */
+   background-image: linear-gradient(rgb(179, 0, 0), rgb(204, 0, 0), rgb(230, 0, 0));
 }
+
+.playlistFormOpener:hover{
+    cursor: pointer;
+    text-shadow: 0px 0px 10px white;
+    background-image: linear-gradient(rgb(189, 0, 0), rgb(163, 0, 0), rgb(255, 0, 0));
+}
+
 #playlistFormDiv{
     background-color: #ffffff; 
+}
+
+.playlistFormOpener:active{
+    top: 2px;
+	transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
 }
 
 #playlistForm{
@@ -165,9 +209,10 @@ ul{
     overflow: auto;
     white-space: nowrap;
 }
-#playlistSubmitButton{
+#playlistSubmitButton, #timeStampButton{
     background-color: #065fd4;
     border: none;
+    border-bottom: 3px solid rgb(22, 76, 146);
     color: #ffffff;
     font-size: 14px;
     padding: 10px 14px;
@@ -175,18 +220,48 @@ ul{
     font-weight: bold;
     letter-spacing: -0.03rem;
     margin: 10px; 
+    background-image: linear-gradient(rgb(7, 107, 237), #065fd4, rgb(6, 85, 188));
 }
+
+#timeStampButton{
+    border:none
+}
+
+#timeStampButton:hover{
+     -webkit-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 12px 1px rgba(0,0,0,0.5);;
+    cursor: pointer;
+    text-shadow: 0px 0px 10px white;
+    background-image: linear-gradient(rgb(6, 91, 203), rgb(5, 78, 173), rgb(22, 120, 248));
+}
+
+#playlistSubmitButton:hover{
+    cursor: pointer;
+    text-shadow: 0px 0px 10px white;
+    background-image: linear-gradient(rgb(6, 91, 203), rgb(5, 78, 173), rgb(22, 120, 248));
+}
+
+#playlistSubmitButton:active{
+    top: 2px;
+	transform: translate(0px,5px);
+  -webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
+}
+
+
 .thumbnailAndTimestamps{
     width: 100%;
+    min-height: 90px;
      display: flex;
-    align-items: stretch; 
+     align-items: stretch; 
      flex-direction: row; 
      line-height: 0;
 }
 .videoThumbnail{
     display: inline-block;
      height: 100%; 
-     width: 120px;
+      width: 120px; 
 }
 
 .timeStampList {
@@ -228,11 +303,17 @@ iframe{
     height: initial;
 }
 
+/* btn */
 .openTimeStampForm{
     font-weight: bold;
     border: none;
     background-color: transparent;
-    color: grey;
+    color: #065fd4;
+}
+
+.openTimeStampForm:hover{
+    cursor: pointer;
+    text-shadow: 0px 0px 10px rgb(0,0,0,0.5);
 }
 
  #timeStampForm{
@@ -243,15 +324,16 @@ iframe{
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
+    align-items: center;
 } 
 
 #timeStampForm .instructions{
 text-align: center;
 }
 
-#timeStampForm *{
+/* #timeStampForm *{
     border: none;
-}
+} */
  .minInputContainer, .secInputContainer, .messageInputContainer{
     display: inline-block;
     margin: 5px;
@@ -278,9 +360,9 @@ input[type=number]::-webkit-outer-spin-button {
 .timeStampMessageInput{
     padding: 0 5px;
 } 
-#timeStampForm button{
+/* #timeStampForm button{
     padding: 0 14px;
-}
+} */
 .nodisplay{
     display: none;
 }
@@ -319,7 +401,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .videoThumbnail{
-        width: 640px;
+       width: 640px;
      } 
      .timeStampList{
          min-height: 100px;
@@ -337,15 +419,34 @@ input[type=number]::-webkit-outer-spin-button {
     .playlistsContainer, .playlistItemsContainer{ 
         flex-direction: row;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: space-evenly;
         align-items: center;
     }
     .playlist, .playlistItem{
-        width: 45%;
+        width: 45%; 
         margin-bottom: 20px;
     } 
-    .videoThumbnail{
-        width: 100%;
+    .playlistItem{ 
+        margin: 20px;
+    } 
+    .timeStampList:not(.videoTimeStampListContainer.timeStampList){
+        width: 420px;
     }
-    
+    .videoThumbnail{
+        width: 420px;
+    }
 }
+
+@media screen and (min-width:1200px){
+    .playlist, .playlistItem{
+        width: 300px; 
+        margin: 20px;
+    } 
+    .timeStampList:not(.videoTimeStampListContainer.timeStampList){
+        width: 300px;
+    }
+    .videoThumbnail{
+        width: 300px;
+    }
+
+} 
